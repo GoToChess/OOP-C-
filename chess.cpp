@@ -20,22 +20,19 @@ int main()
 
 		if (userturn)
 		{
-			//board display function here
-			cout << " user's go... " << endl;
-			cout << " enter: ";
-			cin >> n;
-			cout << endl << n << endl;
-			userturn = 0;
-			system("cls");  
-			
 			while (board1.getStatus() != checkmate)  // While status of the game is not checkmate
 			{
-				cout << userturn << "'s turn." << endl;
+				//board display function here
+				cout << " user's go... " << endl;
 				cout << "Enter the coordinates of your starting position: " << endl;
 				cin >> startPos;
 				cout << "Enter the coordinates of where you want to move to: " << endl;
 				cin >> endPos;
-				
+			
+				userturn = 0;
+				system("cls");  
+			
+			
 				//Convert input to matrix coordinates that can be used by program
 				startColumn = letterToColumn(startPos.substr(0, 1));  // takes the column (char) of the input 
 				startRow = NumberToRow(startPos.substr(1, 2))          // takes the row (int) of the input
