@@ -248,6 +248,7 @@ int Rules::Queen_rules(int sourcex, int sourcey, int destx, int desty, Piece Mat
 
 int Rules::Knight_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {
+	//this needs tested too 
 	int x_diff_abs = abs(destx - sourcex);
 	int y_diff_abs = abs(desty - sourcey);
 
@@ -257,13 +258,10 @@ int Rules::Knight_rules(int sourcex, int sourcey, int destx, int desty, Piece Ma
 
 int Rules::King_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {
-	int x_diff_abs = abs(destx - sourcex);
-	int y_diff_abs = abs(desty - sourcey);
-	int x_diff = destx - sourcex;
-	int y_diff = desty - sourcey;
-
-	if (destx == (sourcex || sourcex - 1 || sourcex + 1) && desty == (sourcey || sourcey - 1 || sourcey + 1)) return 1;
-	else return 0;
+	//x coordinate may be the same, one up or one down, AND y coordinate must be the same or one up or one down, if so 1 is returned
+	if ((destx == sourcex || destx == sourcex-1|| destx== sourcex + 1) && (desty == sourcey || desty == sourcey - 1 || desty== sourcey+1)) return 1;
+	//if that condition is not met 0 is returned
+	return 0;
 }
 
 
