@@ -1,5 +1,4 @@
 #include "computer.h"
-#include "interface.h"
 
 //code I've been using to test computer class
 	//********************************************
@@ -14,66 +13,31 @@ int main()
 	cout << "welcome " << endl;
 
 	cpu move1(&difficulty);
+	Rules king;
+	Board chess;
 
 	while (1)
 	{
 
 		if (userturn)
 		{
-			while (board1.getStatus() != checkmate)  // While status of the game is not checkmate
-			{
-				//board display function here
-				cout << " user's go... " << endl;
-				cout << "Enter the coordinates of your starting position: " << endl;
-				cin >> startPos;
-				cout << "Enter the coordinates of where you want to move to: " << endl;
-				cin >> endPos;
-			
-				userturn = 0;
-				system("cls");  
-			
-			
-				//Convert input to matrix coordinates that can be used by program
-				startColumn = letterToColumn(startPos.substr(0, 1));  // takes the column (char) of the input 
-				startRow = NumberToRow(startPos.substr(1, 2))          // takes the row (int) of the input
-				
-					
-				if (Check rules...)
-				{
-				board1.move(startPos, endPos);
-				}
-				
-				if (board1.getStatus() == check)
-				{
-					cout << Colours[board1.getTurn()] << "'s king is in check!" << endl;
-					
-				}
+			chess.print_board(board);
+			cout << " user's go... " << endl;
+			cin >> n;
+			cout << n << endl;
+			system("cls");
+			//run user's code
 
-				board1.printBoard();
-				cout << "________________________________________" << endl;
-			}
-
-			// Output when checkmate is true
-			if (userturn == 1)
+			 if(king.incheck('B', board)) // if the user's king is in check (moved into a check)
 			{
-				cout << "Congratulations, YOU WIN!!!" << endl;
-				cout << "------------- END OF GAME -------------" << endl;
-			}
-			else
-			{
-				cout << "Computer wins!! Better luck next time" << endl;
-				cout << "------------- END OF GAME -------------" << endl;
-			}
-			
-			//run eoin's king situations
-			// - needs to check that if the king was still in check or if the user moved into a checkmate
-			// - needs to check if there's checkmate and display it
-			// - an if statement like the one below will be ran if the first condition above is met
-			//if(king_situations)
-			//{
-			//	cout << "Game over, Computer wins" << endl;
-			//  break;
-			//}
+				cout << "Game_over, Computer wins" << endl;
+				break; // breaks while loop and main ends
+			} 
+			 if (king.incheck('W', board))
+			 {
+				 cout << "White king in checkmate" << endl;
+			 }
+			 userturn = 0;
 		}
 
 		if (!userturn)
@@ -94,22 +58,21 @@ int main()
 			{
 				move1.hard_diff(board);
 			}
+			if (king.incheck('W', board))
+			{
+				cout << " Game over, User wins" << endl;
+				break;
+			}
 
+			if (king.incheck('B', board))
+			{
+				cout << "Black king in checkmate" << endl;
+			}
+			
 			userturn = 1;
-
-			//clc (clear terminal)
-			//run eoin's king situations
-			// - needs to check that if the king was still in check or if the computer moved into a checkmate
-			// - needs to check if there's checkmate and display it
-			// - an if statement like the one below will be ran if the first condition above is met
-			//if(king_situations)
-			//{
-			//	cout << "Game over, User wins" << endl;
-			//  break;
-			//}
 		}
 	}
-
+	
 	return 0;
 }
 
