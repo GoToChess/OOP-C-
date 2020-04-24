@@ -5,7 +5,7 @@
 *
 *@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
 *@license http://www.gnu.org/copyleft/gpl.html
-*@copyright Ruairi Caldwell 2019
+*@copyright Ruairi Caldwell 2020
 *
 */
 
