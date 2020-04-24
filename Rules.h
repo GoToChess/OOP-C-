@@ -35,14 +35,14 @@ public:
 
 
 /**
-	*@author Ruairi Caldwell
-	*
-	*checks if a king piece is in "check"
-	*
-	*@param kingcolour the colour of the king to be analysed to find out if it is in "check"
-	*@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
-	*@return returns 1 if the move is legal and 0 otherwise
-	*/
+*@author Ruairi Caldwell
+*
+*checks if a king piece is in "check"
+*
+*@param kingcolour the colour of the king to be analysed to find out if it is in "check"
+*@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
+*@return returns 1 if the move is legal and 0 otherwise
+*/
 int Rules::incheck(char kingcolour, Piece Matrix[8][8])
 {
 	//returns 0 if king is not in check, and 1 if king is in check.
@@ -132,7 +132,6 @@ int Rules::squareattack(int row, int column, char attacking_colour, Piece Matrix
 */
 int Rules::Pawn_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8], char colour)
 {	
-	std::cout << "inside pawn now";
 	char opp_colour; //colour of opposition pieces
 	int forward; //forward direction defined by which colour the piece is
 	int startingrow; //starting row for pawns defined by colour also
