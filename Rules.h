@@ -1,15 +1,26 @@
 #pragma once
 
-#include "Piece.h"
+/**
+*Class definining the rules of how pieces can move in chess
+*
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
+*@license http://www.gnu.org/copyleft/gpl.html
+*@copyright Ruairi Caldwell 2019
+*
+*/
+
 #include <cstdlib>
+#include <iostream>
+#include "Piece.h"
+
+
 
 
 class Rules
 {
-	//possibly add error message before each return 0, to display in terminal, what rule it's failed at
 	//RULES THAT NEED CONSIDERED, EN PASSANT, PAWN PROMOTION, CASTLING 
-	//private functions
-	int Pawn_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8], char colour);
+
+	int Pawn_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8], char colour); //UPDATE COLOUR BIT
 	int Rook_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
 	int Bishop_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
 	int Queen_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
@@ -17,31 +28,21 @@ class Rules
 	int King_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
 	int squareattack(int row, int column, char attacking_colour, Piece Matrix[8][8]);
 
-
 public:
-	//at some point moveLegal would be made private, needs to be replaced by a function that:
-	//1. checks if that piece is a allowed to move in that certain way 
-	//2. then moves that piece in copy of array 
-	//3. then checks if that piece was moved in that way, would it leave their king in check.
 	int moveLegal(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
 	int incheck(char kingcolour, Piece Matrix[8][8]);
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/**
+	*@author Ruairi Caldwell
+	*
+	*checks if a king piece is in "check"
+	*
+	*@param kingcolour the colour of the king to be analysed to find out if it is in "check"
+	*@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
+	*@return returns 1 if the move is legal and 0 otherwise
+	*/
 int Rules::incheck(char kingcolour, Piece Matrix[8][8])
 {
 	//returns 0 if king is not in check, and 1 if king is in check.
@@ -79,6 +80,17 @@ int Rules::incheck(char kingcolour, Piece Matrix[8][8])
 
 }
 
+/**
+*@author Ruairi Caldwell	
+*
+*checks if any piece of the attacking colour could potentially legally move to a specific square
+*
+*@param row the row of the square to be assessed to see if that square is under attack
+*@param column the column of the square to be assessed to see if that square is under attack
+*@param attacking_colour the colour of the piece which will be attacking the specific square
+*@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
+*@return returns a 1 if the square is under attack and 0 otherwise 
+*/
 int Rules::squareattack(int row, int column, char attacking_colour, Piece Matrix[8][8])
 {
 	//return 1 if that square is "under attack" meaning a piece of attacking colour has that piece as a potential legal move on that square"
@@ -105,14 +117,27 @@ int Rules::squareattack(int row, int column, char attacking_colour, Piece Matrix
 	return 0;
 }
 
+/**
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
+*
+*checks if a pawn can legally make the chosen move
+*
+*@param sourcex the number of the row in the 2d array of the piece to be moved
+*@param sourcey the number of the column in the 2d array of the piece to be moved
+*@param destx the number of the row of where the piece is to be moved
+*@param desty the number of the column of where the piece is to be moved
+*@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
+*@param colour colour of the pawn
+*@return returns 1 if the move is legal within the rules of the game and 0 otherwise
+*/
 int Rules::Pawn_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8], char colour)
-{
-	//Rules for white pawn
-	//returns 1 if move is legal, 0 if illegal
-
+{	
+	std::cout << "inside pawn now";
 	char opp_colour; //colour of opposition pieces
 	int forward; //forward direction defined by which colour the piece is
 	int startingrow; //starting row for pawns defined by colour also
+	
+
 	if (colour == 'W')
 	{
 		opp_colour = 'B';
@@ -139,6 +164,18 @@ int Rules::Pawn_rules(int sourcex, int sourcey, int destx, int desty, Piece Matr
 
 }
 
+/**
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
+*
+*checks if a rook can legally make the chosen move
+*
+*@param sourcex the number of the row in the 2d array of the piece to be moved
+*@param sourcey the number of the column in the 2d array of the piece to be moved
+*@param destx the number of the row of where the piece is to be moved
+*@param desty the number of the column of where the piece is to be moved
+*@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
+*@return returns 1 if the move is legal within the rules of the game and 0 otherwise
+*/
 int Rules::Rook_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {
 
@@ -161,10 +198,9 @@ int Rules::Rook_rules(int sourcex, int sourcey, int destx, int desty, Piece Matr
 	//moving vertically up
 	else if (x_diff < 0)
 	{
-		std::cout << "rook moving vertically up" << std::endl;
 		for (int i = sourcex - 1; i>destx; i--)
 		{
-			if (Matrix[i][sourcey].getType() != '_') return 0;
+			if (Matrix[i][sourcey].getType() != '_') return 0; //ensuring all squares inbetween source and destination are empty
 		}
 		return 1;
 	}
@@ -174,7 +210,7 @@ int Rules::Rook_rules(int sourcex, int sourcey, int destx, int desty, Piece Matr
 		//std::cout << "rook moving horizontally to the right" << std::endl;
 		for (int i = sourcey + 1; i<desty; i++)
 		{
-			if (Matrix[sourcex][i].getType() != '_') return 0;
+			if (Matrix[sourcex][i].getType() != '_') return 0; //ensuring all squares inbetween source and destination are empty
 		}
 		return 1;
 	}
@@ -183,12 +219,24 @@ int Rules::Rook_rules(int sourcex, int sourcey, int destx, int desty, Piece Matr
 	{
 		for (int i = sourcey - 1; i>desty; i--)
 		{
-			if (Matrix[sourcex][i].getType() != '_') return 0;
+			if (Matrix[sourcex][i].getType() != '_') return 0; //ensuring all squares inbetween source and destination are empty
 		}
 		return 1;
 	}
 }
 
+/**
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
+*
+*checks if a bishop can legally make the chosen move
+*
+*@param sourcex the number of the row in the 2d array of the piece to be moved
+*@param sourcey the number of the column in the 2d array of the piece to be moved
+*@param destx the number of the row of where the piece is to be moved
+*@param desty the number of the column of where the piece is to be moved
+*@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
+*@return returns 1 if the move is legal within the rules of the game and 0 otherwise
+*/
 int Rules::Bishop_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {
 	int x_diff = destx - sourcex;
@@ -212,7 +260,7 @@ int Rules::Bishop_rules(int sourcex, int sourcey, int destx, int desty, Piece Ma
 	{
 		for (int i = sourcex + 1; i < destx; i++)
 		{
-			if (Matrix[i][--sourcey].getType() != '_') return 0;
+			if (Matrix[i][--sourcey].getType() != '_') return 0; //checking squares between source and destination are empty
 		}
 		return 1;
 	}
@@ -221,7 +269,7 @@ int Rules::Bishop_rules(int sourcex, int sourcey, int destx, int desty, Piece Ma
 	{
 		for (int i = sourcex - 1; i > destx; i--)
 		{
-			if (Matrix[i][--sourcey].getType() != '_') return 0;
+			if (Matrix[i][--sourcey].getType() != '_') return 0; //checking squares between source and destination are empty
 		}
 		return 1;
 	}
@@ -230,22 +278,46 @@ int Rules::Bishop_rules(int sourcex, int sourcey, int destx, int desty, Piece Ma
 	{
 		for (int i = sourcex - 1; i > destx; i--)
 		{
-			if (Matrix[i][++sourcey].getType() != '_') return 0;
+			if (Matrix[i][++sourcey].getType() != '_') return 0; //checking squares between source and destination are empty
 		}
 		return 1;
 	}
 }
 
+/**
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
+*
+*checks if a queen can legally make the chosen move
+*
+*@param sourcex the number of the row in the 2d array of the piece to be moved
+*@param sourcey the number of the column in the 2d array of the piece to be moved
+*@param destx the number of the row of where the piece is to be moved
+*@param desty the number of the column of where the piece is to be moved
+*@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
+*@return returns 1 if the move is legal within the rules of the game and 0 otherwise
+*/
 int Rules::Queen_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {
 	int diag, straight;
 	diag = Bishop_rules(sourcex, sourcey, destx, desty, Matrix);
 	straight = Rook_rules(sourcex, sourcey, destx, desty, Matrix);
 
-	if (diag | straight) return 1;
+	if (diag | straight) return 1; // the queen is just a combination of both a rook and a bishop so if either of these pass then its legal
 	else return 0;
 }
 
+/**
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
+*
+*checks if a knight can legally make the chosen move
+*
+*@param sourcex the number of the row in the 2d array of the piece to be moved
+*@param sourcey the number of the column in the 2d array of the piece to be moved
+*@param destx the number of the row of where the piece is to be moved
+*@param desty the number of the column of where the piece is to be moved
+*@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
+*@return returns 1 if the move is legal within the rules of the game and 0 otherwise
+*/
 int Rules::Knight_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {
 	//this needs tested too 
@@ -256,6 +328,19 @@ int Rules::Knight_rules(int sourcex, int sourcey, int destx, int desty, Piece Ma
 	else return 0;
 }
 
+
+/**
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
+*
+*checks if a king can legally make the chosen move
+*
+*@param sourcex the number of the row in the 2d array of the piece to be moved
+*@param sourcey the number of the column in the 2d array of the piece to be moved
+*@param destx the number of the row of where the piece is to be moved
+*@param desty the number of the column of where the piece is to be moved
+*@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
+*@return returns 1 if the move is legal within the rules of the game and 0 otherwise
+*/
 int Rules::King_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {
 	//x coordinate may be the same, one up or one down, AND y coordinate must be the same or one up or one down, if so 1 is returned
@@ -264,7 +349,18 @@ int Rules::King_rules(int sourcex, int sourcey, int destx, int desty, Piece Matr
 	return 0;
 }
 
-
+/**
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
+*
+*checks if a move on the chess board is within the rules of the game
+*
+*@param sourcex the number of the row in the 2d array of the piece to be moved
+*@param sourcey the number of the column in the 2d array of the piece to be moved
+*@param destx the number of the row of where the piece is to be moved
+*@param desty the number of the column of where the piece is to be moved
+*@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
+*@return returns 1 if the move is legal within the rules of the game and 0 otherwise
+*/
 int Rules::moveLegal(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {
 	//will return 1 if move is legal or 0 if move is illegal
@@ -274,15 +370,13 @@ int Rules::moveLegal(int sourcex, int sourcey, int destx, int desty, Piece Matri
 	char POI_Colour, POI_Type;
 
 	POI = Matrix[sourcex][sourcey]; //Piece of Interest object
-	POI_Colour = POI.getColour();
-	POI_Type = POI.getType();
+	POI_Colour = POI.getColour(); //the colour of the piece
+	POI_Type = POI.getType(); //what type of piece this is
 
-	if (POI_Colour == '_' || POI_Type == '_') return 0;
-	//returns 0 if any input was outside the bounds of the array
-	if (sourcex > 7 || sourcey > 7 || destx > 7 || desty > 7 || sourcex < 0 || sourcey < 0 || destx < 0 || desty < 0) return 0;
+	if (POI_Colour == '_' || POI_Type == '_') return 0; //cannot move an empty piece
+	if (sourcex > 7 || sourcey > 7 || destx > 7 || desty > 7 || sourcex < 0 || sourcey < 0 || destx < 0 || desty < 0) return 0;//not allowed outside the bounds of the array
 	if ((sourcex == destx) && (sourcey == desty)) return 0;//can't move a piece to the same square
-														   //can't take piece of your own colour
-	if ((POI_Colour == Matrix[destx][desty].getColour())) return 0;
+	if ((POI_Colour == Matrix[destx][desty].getColour())) return 0;//can't move a piece to a square which i s occupied by a piece of the same colour
 
 
 	switch (POI_Type) {
