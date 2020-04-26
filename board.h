@@ -93,7 +93,7 @@ void chessBoard::movePiece(Piece Array[8][8], int firstCol, int firstRow, int la
     char initColour = Array[initLoc[0]][initLoc[1]].getColour();
     
     char moveToType = Array[moveToLoc[0]][moveToLoc[1]].getType();
-    char moveToColour = Array[initLoc[0]][initLoc[1]].getColour();
+    char moveToColour = Array[moveToLoc[0]][moveToLoc[1]].getColour();
     
     //Switching piece types to make move occur
     if(moveToType == '_')
