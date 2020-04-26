@@ -13,7 +13,7 @@
 
 class Piece
 {
-	char Colour; //W or B or use _ for objects which will fill up empty squares
+	char Colour; //'W' or 'B' or use '_'for objects which will fill up empty squares
 	char Type;//P=pawn, K=king, Q=queen, R=rook, B=bishop N=knight, use _ for empty ones which will fill up empty squares
 			  //int movecount = 0; //to track if a piece has moved to check if castling is legal
 
@@ -49,7 +49,7 @@ Piece::Piece(char constructorcolour, char constructortype)
 *sets the variables for colour and type of piece
 *
 *@param newcolour the colour of the piece to be created, 'W'=white, 'B'=black, '_' used for empty squares
-*@param newtype the type of piece to be created, P=pawn, K=king, Q=queen, R=rook, B=bishop N=knight, use _ for empty squares
+*@param newtype the type of piece to be created, 'P'=pawn, 'K'=king, 'Q'=queen, 'R'=rook, 'B'=bishop 'N'=knight, use '_' for empty squares
 */
 void Piece::input(char newcolour, char newtype)
 {
@@ -64,6 +64,7 @@ void Piece::input(char newcolour, char newtype)
 
 }
 
+//possibly remove this if not needed
 void Piece::output()
 {
 	std::cout << "This is a " << Colour << " piece which is of type " << Type << std::endl;
