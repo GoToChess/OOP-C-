@@ -12,6 +12,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "Piece.h"
+#include "board.h"
 
 
 
@@ -20,7 +21,7 @@ class Rules
 {
 	//RULES THAT NEED CONSIDERED, EN PASSANT, PAWN PROMOTION, CASTLING 
 
-	int Pawn_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8], char colour); //UPDATE COLOUR BIT
+	int Pawn_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8], char colour); 
 	int Rook_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
 	int Bishop_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
 	int Queen_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
@@ -41,7 +42,7 @@ public:
 *
 *@param kingcolour the colour of the king to be analysed to find out if it is in "check"
 *@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
-*@return returns 1 if the move is legal and 0 otherwise
+*@return returns 1 if king is in check, 0 otherwise
 */
 int Rules::incheck(char kingcolour, Piece Matrix[8][8])
 {
@@ -55,7 +56,7 @@ int Rules::incheck(char kingcolour, Piece Matrix[8][8])
 	else
 	{
 		std::cout << "Not a valid colour, valid colours for the King are \'W\' and \'B\'" << std::endl;
-		return 2;//failed
+		return 0;//failed
 	}
 
 	//find the king of the specified colour colour
@@ -68,7 +69,7 @@ int Rules::incheck(char kingcolour, Piece Matrix[8][8])
 				//storing location king was found
 				kingrow = i;
 				kingcolumn = j;
-				std::cout << "king found at row" << kingrow << "and column" << kingcolumn << std::endl;
+				//std::cout << "king found at row" << kingrow << "and column" << kingcolumn << std::endl;
 				//breakout of loop
 				i = j = 7;
 			}
@@ -136,7 +137,7 @@ int Rules::Pawn_rules(int sourcex, int sourcey, int destx, int desty, Piece Matr
 	int forward; //forward direction defined by which colour the piece is
 	int startingrow; //starting row for pawns defined by colour also
 	
-
+	//defining forward direction needed for pawns
 	if (colour == 'W')
 	{
 		opp_colour = 'B';
@@ -364,8 +365,12 @@ int Rules::moveLegal(int sourcex, int sourcey, int destx, int desty, Piece Matri
 {
 	//will return 1 if move is legal or 0 if move is illegal
 	//need functionality to find out if the piece they are attempting to move actually belongs to them, team up with Eamon for this.
+	int movement;
+	chessBoard board;
+	Piece MatrixCopy[8][8];
 
-	Piece POI('_', '_'); //empty piece object
+
+	Piece POI; //empty piece object
 	char POI_Colour, POI_Type;
 
 	POI = Matrix[sourcex][sourcey]; //Piece of Interest object
@@ -380,23 +385,58 @@ int Rules::moveLegal(int sourcex, int sourcey, int destx, int desty, Piece Matri
 
 	switch (POI_Type) {
 	case 'P':
-		return Pawn_rules(sourcex, sourcey, destx, desty, Matrix, POI_Colour);
+		movement = Pawn_rules(sourcex, sourcey, destx, desty, Matrix, POI_Colour);
 		break;//break seems unneccessary due to the return statement.
 	case 'R':
-		return Rook_rules(sourcex, sourcey, destx, desty, Matrix);
+		movement = Rook_rules(sourcex, sourcey, destx, desty, Matrix);
 		break;
 	case 'B':
-		return Bishop_rules(sourcex, sourcey, destx, desty, Matrix);
+		movement = Bishop_rules(sourcex, sourcey, destx, desty, Matrix);
 		break;
 	case 'Q':
-		return Queen_rules(sourcex, sourcey, destx, desty, Matrix);
+		movement = Queen_rules(sourcex, sourcey, destx, desty, Matrix);
 		break;
 	case 'N':
-		return Knight_rules(sourcex, sourcey, destx, desty, Matrix);
+		movement = Knight_rules(sourcex, sourcey, destx, desty, Matrix);
 		break;
 	case 'K':
-		return King_rules(sourcex, sourcey, destx, desty, Matrix);
+		movement = King_rules(sourcex, sourcey, destx, desty, Matrix);
 		break;
 	}
+	//std::cout << "finished movement bit and movement return is: " << movement << std::endl;
+
+
+	if (movement == 0) return movement;
+
+	
+	//now assessing if whether or not making the move, would in turn leave the player's own king in check (through a discovery for example)
+	char piecetype;
+	char piececolour;
+
+	//creating a copy of the current board for fear of disrupting the original
+	for (int loop1=0; loop1<=7; loop1++)
+	{
+		for (int loop2=0; loop2<=7; loop2++)
+		{
+			piecetype = Matrix[loop1][loop2].getType();
+			piececolour = Matrix[loop1][loop2].getColour();
+			MatrixCopy[loop1][loop2].input(piececolour, piecetype);
+		}
+	}
+
+	//std::cout << "end of for loops" << std::endl;
+	//make the proposed move, takes parameters in different order...
+	board.movePiece(MatrixCopy, sourcey, sourcex, desty, destx);
+
+	int checked;
+	//if after that move the player's king would be left in check, that is not a legal move.
+	checked = incheck(POI_Colour, MatrixCopy);
+	if (checked == 1) return 0;
+	else return 1;
+
+
+
+
+
 
 }
