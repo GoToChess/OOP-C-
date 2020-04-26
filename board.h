@@ -1,3 +1,6 @@
+#include <iostream>
+using namespace std;
+
 class chessBoard
 {
     
@@ -42,14 +45,14 @@ private:
         
     };
     
-
-
+    
+    
 public:
     //Class Functions
     void movePiece(Piece Array[8][8], int firstCol, int firstRow, int lastCol, int lastRow); //To move a piece around the board
     void updateDispBoard(int firstCol, int firstRow, int lastCol, int lastRow); //Updating visual board
     void boardDisplay(); //Displaying the board at the present time
-
+    
     
 };
 
@@ -76,42 +79,44 @@ void chessBoard::movePiece(Piece Array[8][8], int firstCol, int firstRow, int la
     //Inital realBoard array
     //std::cout<< "Printing realBoard array...\n";
     //for(int i = 0; i<8; i++){
-        //for(int j = 0; j<8; j++){
-            //std::cout<< Array[i][j].getType() << " ";;
-        //}
-        
-        //std::cout << "\n";
+    //for(int j = 0; j<8; j++){
+    //std::cout<< Array[i][j].getType() << " ";;
+    //}
+    
+    //std::cout << "\n";
     //}
     
     std::cout << "\n";
     
     //Storing inital Piece Type, and last Piece Type
     char initType = Array[initLoc[0]][initLoc[1]].getType();
+    char initColour = Array[initLoc[0]][initLoc[1]].getColour();
+    
     char moveToType = Array[moveToLoc[0]][moveToLoc[1]].getType();
+    char moveToColour = Array[initLoc[0]][initLoc[1]].getColour();
     
     //Switching piece types to make move occur
     if(moveToType == '_')
     {
-        Array[initLoc[0]][initLoc[1]].Type = moveToType;
-        Array[moveToLoc[0]][moveToLoc[1]].Type = initType;
+        Array[initLoc[0]][initLoc[1]].input(moveToColour, moveToType);
+        Array[moveToLoc[0]][moveToLoc[1]].input(initColour, initType);
     }
     else
     {
-        Array[initLoc[0]][initLoc[1]].Type = '_';
-        Array[moveToLoc[0]][moveToLoc[1]].Type = initType;
+        Array[initLoc[0]][initLoc[1]].input('_', '_');
+        Array[moveToLoc[0]][moveToLoc[1]].input(initColour, initType);
     }
-    
     
     std::cout << "\n";
     
     //Printing realBoard after move
     //std::cout << "Real Board After Move...\n";
     //for(int i = 0; i<8; i++){
-        //for(int j = 0; j<8; j++){
-            //std::cout<< Array[i][j].getType() << " ";;
-        //}
-        
-        //std::cout << "\n";
+    //for(int j = 0; j<8; j++){
+    //std::cout<< Array[i][j].getType() << " ";;
+    //}
+    
+    //std::cout << "\n";
     //}
     
 }
@@ -129,8 +134,8 @@ void chessBoard::updateDispBoard(int firstCol, int firstRow, int lastCol, int la
     //dispArrayCoord[0] = rows of display board, dispArrayCoord[1] = columns of display board
     int dispArrayCoord[2][8] =
     {
-        {3, 7, 11, 15, 19, 23, 27, 31}, //rows
-        {5, 9, 13, 17, 21, 25, 29, 33} //cols
+        {3, 7, 11, 15, 19, 23, 27, 31},
+        {5, 9, 13, 17, 21, 25, 29, 31}
     };
     
     //Getting inital row/column value
@@ -149,22 +154,13 @@ void chessBoard::updateDispBoard(int firstCol, int firstRow, int lastCol, int la
     char initChar = dispBoard[initRow][initCol];
     //std::cout << "Inital Char ..."<< dispBoard[initRow][initCol] << " \n";
     
-
+    
     char lastChar = dispBoard[finalRow][finalCol];
     //std::cout << "Final Char ..." << lastChar << " \n";
     
     //Setting the char at inital and final positions equal to each other for the change
-    if(lastChar == '_')
-    {
-        dispBoard[initRow][initCol] = lastChar;
-        dispBoard[finalRow][finalCol] = initChar;
-    }
-    else
-    {
-        dispBoard[initRow][initCol] = ' ';
-        dispBoard[finalRow][finalCol] = initChar;
-    }
-    
+    dispBoard[initRow][initCol] = lastChar;
+    dispBoard[finalRow][finalCol] = initChar;
     
 }
 
