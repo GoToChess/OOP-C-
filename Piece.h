@@ -21,7 +21,8 @@ public:
 	//TODO: ADD SO YOU CAN ENTER A CAPITAL OR LOWER CASE LETTER AND IT CONVERTS TO UPPERCASE
 	//possibly hold original 'File' of piece for en passant
 
-	Piece(char constructorcolour, char constructortype);
+	Piece();
+	Piece(char constructorcolour, char constructortype); //constructor with parameters
 	void input(char newcolour, char newtype);
 	void output(); 
 	char getColour();
@@ -42,6 +43,19 @@ Piece::Piece(char constructorcolour, char constructortype)
 	//calls input function, colour first parameter, type of piece second parameter
 	input(constructorcolour, constructortype);
 }
+
+/**
+*@author Ruairi Caldwell
+*
+*overloaded constructor used if no constructor is called, creates a "blank" piece by setting the both colour and type = '_'
+*
+*/
+Piece::Piece()
+{
+	Colour = '_';
+	Type = '_';
+}
+
 
 /**
 *@author Ruairi Caldwell
