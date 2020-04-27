@@ -130,6 +130,7 @@ int Rules::squareattack(int row, int column, char attacking_colour, Piece Matrix
 *@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
 *@param colour colour of the pawn
 *@return returns 1 if the move is legal within the rules of the game and 0 otherwise
+*@see Rules::moveLegal
 */
 int Rules::Pawn_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8], char colour)
 {	
@@ -175,6 +176,7 @@ int Rules::Pawn_rules(int sourcex, int sourcey, int destx, int desty, Piece Matr
 *@param desty the number of the column of where the piece is to be moved
 *@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
 *@return returns 1 if the move is legal within the rules of the game and 0 otherwise
+*@see Rules::moveLegal
 */
 int Rules::Rook_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {
@@ -236,6 +238,7 @@ int Rules::Rook_rules(int sourcex, int sourcey, int destx, int desty, Piece Matr
 *@param desty the number of the column of where the piece is to be moved
 *@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
 *@return returns 1 if the move is legal within the rules of the game and 0 otherwise
+*@see Rules::moveLegal
 */
 int Rules::Bishop_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {
@@ -295,6 +298,7 @@ int Rules::Bishop_rules(int sourcex, int sourcey, int destx, int desty, Piece Ma
 *@param desty the number of the column of where the piece is to be moved
 *@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
 *@return returns 1 if the move is legal within the rules of the game and 0 otherwise
+*@see Rules::moveLegal
 */
 int Rules::Queen_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {
@@ -317,6 +321,7 @@ int Rules::Queen_rules(int sourcex, int sourcey, int destx, int desty, Piece Mat
 *@param desty the number of the column of where the piece is to be moved
 *@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
 *@return returns 1 if the move is legal within the rules of the game and 0 otherwise
+*@see Rules::moveLegal
 */
 int Rules::Knight_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {
@@ -340,6 +345,7 @@ int Rules::Knight_rules(int sourcex, int sourcey, int destx, int desty, Piece Ma
 *@param desty the number of the column of where the piece is to be moved
 *@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
 *@return returns 1 if the move is legal within the rules of the game and 0 otherwise
+*@see Rules::moveLegal
 */
 int Rules::King_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {

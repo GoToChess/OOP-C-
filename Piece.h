@@ -30,7 +30,7 @@ public:
 };
 
 /**
-*@author Ruairi Caldwell
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
 *
 *constructor to set the colour and type of piece by calling the input function
 *
@@ -45,20 +45,19 @@ Piece::Piece(char constructorcolour, char constructortype)
 }
 
 /**
-*@author Ruairi Caldwell
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
 *
-*overloaded constructor used if no constructor is called, creates a "blank" piece by setting the both colour and type = '_'
+*overloaded constructor used if no constructor parameters are given, creates a "blank" piece by setting the both colour and type = '_'
 *
 */
 Piece::Piece()
 {
-	Colour = '_';
-	Type = '_';
+	input('_','_');
 }
 
 
 /**
-*@author Ruairi Caldwell
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
 *
 *sets the variables for colour and type of piece
 *
@@ -78,14 +77,19 @@ void Piece::input(char newcolour, char newtype)
 
 }
 
-//possibly remove this if not needed
+/**
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
+*
+*prints a message to the terminal to let the user know the colour and type of the piece
+*
+*/
 void Piece::output()
 {
 	std::cout << "This is a " << Colour << " piece which is of type " << Type << std::endl;
 }
 
 /**
-*@author Ruairi Caldwell
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
 *
 *returns the colour of the piece
 *
@@ -97,7 +101,7 @@ char Piece::getColour()
 }
 
 /**
-*@author Ruairi Caldwell
+*@author Ruairi Caldwell <caldwell-r2@ulster.ac.uk>
 *
 *returns the type of the piece
 *
