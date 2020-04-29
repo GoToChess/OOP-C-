@@ -24,6 +24,7 @@ private:
 	// rown Input conversion 
 	int NumberToRow(int Row);
 
+	// 
 	int startx, starty, endx, endy;
 	char myColour;
 	Rules check;
@@ -45,6 +46,8 @@ public:
 
 	// Final Array to be returned from user Input
 	int* c = new int[4];
+
+	void printLogo(void);
 };
 
 
@@ -63,17 +66,17 @@ public:
 int* Interface::userInput()
 {
 
-
 	cout << "________________________________________" << endl;
 	cout << endl << "user's go... " << endl;
 	cout << endl;
 
-	cout << "Enter the coordinates of the piece you want to move. (eg A7)";
+	cout << "Enter the coordinates of the piece you want to move. (eg A1)";
 	cin >> startPos;
 	cout << endl;
-	cout << "Enter the coordinates of the location you want to move to. (eg A6)";
+	cout << "Enter the coordinates of the location you want to move to. (eg A2)";
 	cin >> endPos;
 	cout << endl;
+	cout << "You have selected the piece at " << endPos << " and want to move it to " << startPos << endl;
 
 	//Convert input to matrix coordinates that can be used by program
 	startx = letterToColumn(startPos.substr(0, 1));  // takes a sub string of the column (char) of the input 
@@ -93,14 +96,16 @@ int* Interface::userInput()
 
 
 /**
-* checks if the user has selected a piece that is theirs
+* checks if the user has selected a legal move, if true, the piece is moved
 *
+* Checks if the user has seleted a colour that is theirs, and if the move they are trying
+* to make is within the rules. If so the source piece is moved to the destination and 
+* the source is then cleared to an empty piece. 
 *
 * @param Piece Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board
 * @return returns True if the selected piece is the users, otherwise False
 * @see Piece::getColour()
 */
-
 
 void Interface::movePiece(Piece Matrix[8][8])
 {
@@ -123,34 +128,12 @@ void Interface::movePiece(Piece Matrix[8][8])
 
 
 /**
-* Takes the user coordinates input and converts to corresponding array value
-*
-* @param
-* @return newInput which is the positioon selected by the user in array formmat
-*/
-
-/*
-int Interface::convArray()
-{
-	int convColumn;
-	int convRow;
-	//Convert input to matrix coordinates that can be used by program
-	convColumn = letterToColumn(startPos.substr(0, 1));  // takes the column (char) of the input
-	convRow = NumberToRow(startPos.substr(1, 2));         // takes the row (int) of the input
-	newInput[0] = convColumn;
-	newInput[1] = convRow;
-	return newInput;
-}
-*/
-
-
-
-/**
 * Takes the letter character in the input coordinate and converts to corresponding matrix value
 *
 *
 * @param letter
 * @return The array value for the column input from user
+* @see Interface::NumberToRow
 */
 int Interface::letterToColumn(const std::string letter)
 {
@@ -170,6 +153,7 @@ int Interface::letterToColumn(const std::string letter)
 *
 *
 * @param The array value for the row input from user
+* @see Interface::letterToColumn
 */
 
 int Interface::NumberToRow(const int Row)
@@ -182,4 +166,25 @@ int Interface::NumberToRow(const int Row)
 	else if (Row == 5) { return 5; }
 	else if (Row == 6) { return 6; }
 	else if (Row == 7) { return 7; }
+}
+
+
+
+/**
+* Prints out a logo for aesthetics
+*
+*
+*/
+void Interface::printLogo(void)
+{
+	cout << "===============================================\n";
+	cout << "       _____ _    _ ______  _____ _____\n";
+	cout << "      / ____| |  | |  ____|/ ____/ ____|\n";
+	cout << "     | |    | |__| | |__  | (___| (___ \n";
+	cout << "     | |    |  __  |  __|  \\___ \\\\___ \\ \n";
+	cout << "     | |____| |  | | |____ ____) |___) |\n";
+	cout << "     \\_____|_|  |_|______|_____/_____/\n\n";
+	cout << "===============================================\n\n";
+	cout << " Created by Ruairi, Eamon, Jack, Eoin and Harry \n";
+	cout << "===============================================\n\n";
 }
