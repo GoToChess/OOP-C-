@@ -1,0 +1,40 @@
+Group Meeting 2
+Date 26/3/2020
+
+Chair: Eoin Durkin
+secretary: Ruairi Caldwell
+
+Full Attendance
+Apologies (None)
+
+Update from Each team member -
+
+Ruairi: Piece Class is finished, significant progress made on rules class, certainly at a point where others can interact with it.
+
+Eamon :  made an array, to play around with pieces, started his interface going to continue work on that,
+going to work on function which takes traditional chess input and translates it to array co-ordinate - eg A8 -> 0,0
+
+Harry : starting work on a the board class which will display the board and move the pieces around, has been doing reserach on this
+
+Jack - Has been thinking about how to implement the computer player
+Now that the rules class is usable, jack can now start making progress on the "computer" player.
+
+Eoin - Has been doing research around how the game can be coded, going to start working on checkmate functionality and possibly
+other specialised rules such as en passant if time permits
+
+
+General Discussion - 
+
+Talked about how we will manage source control, we have elected to use GitHub and Eamon has made a repository for us to contribute to 
+https://github.com/GoToChess/OOP-C-
+We discussed how code will have to be made into header files for portability.
+Ruairi spent some time explaining how the Piece class works to others as people needed to use it.
+Good feedback was given on what was done of the Rules class so far.
+We spent time discussing how the classes would interact and the general control flow of the game
+to ensure that all functionality is covered for the game to be complete. 
+We decided we would need to update eachother as early as possible if functionality vital to the running of the game had
+been missed in the planning but we are fairly confident we have all sitautions thought of.
+
+finding video meetings to be a bit more difficult to communicate compared to discussions in person.
+
+Everyone knows their Class now and will continue to work on it updating to Github as progress is made.
