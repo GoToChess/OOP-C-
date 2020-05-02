@@ -13,6 +13,7 @@
 #include <string>
 #include "computer.h"
 
+
 using namespace std;
 
 class Interface
@@ -28,6 +29,7 @@ private:
 	int startx, starty, endx, endy;
 	char myColour;
 	Rules check;
+	Piece piece7;
 
 
 public:
@@ -47,15 +49,14 @@ public:
 	// Final Array to be returned from user Input
 	int* c = new int[4];
 
-	void printLogo(void);
+	void printLogo(void); 
 };
 
 
 /**
 * Gets the input from the user and converts in to array form
 *
-* Gets input from the user and checks if this input is valid. 
-* Converts these input coordinates using the conversion functions and
+* Gets the coordinates from the user and using the conversion functions,
 * changes the input into an array that can work with the rest of the program
 *
 *
@@ -67,7 +68,7 @@ public:
 int* Interface::userInput()
 {
 
-	// Creating ASCII variables for input validation between A and H
+	// Creating ASCII for input validation between A and H
 	char A = 'A';
 	char H = 'H';
 	int ascii_A = int(A);
@@ -75,7 +76,7 @@ int* Interface::userInput()
 
 
 
-		cout << endl << "________________________________________" << endl;
+		cout << "________________________________________" << endl;
 		cout << endl << "user's go... " << endl;
 		cout << endl;
 
@@ -136,22 +137,24 @@ int* Interface::userInput()
 		c[2] = endx;
 		c[3] = endy;
 
+		// for testing 
+
+	//	std::cout << "Starting coordinate array: " << c[0] << c[1] << " Destination coordinate array: " << c[2] << c[3];
 		return c;
-	
+
 }
 
 
+
 /**
-* checks if the user has selected a legal move, if true, the piece is moved
+* checks if the user has selected a piece that is theirs
 *
-* Checks if the user has seleted a colour that is theirs, and if the move they are trying
-* to make is within the rules. If so the source piece is moved to the destination and 
-* the source is then cleared to an empty piece. 
 *
 * @param Piece Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board
 * @return returns True if the selected piece is the users, otherwise False
 * @see Piece::getColour()
 */
+
 
 void Interface::movePiece(Piece Matrix[8][8])
 {
@@ -179,18 +182,17 @@ void Interface::movePiece(Piece Matrix[8][8])
 *
 * @param letter
 * @return The array value for the column input from user
-* @see Interface::NumberToRow
 */
 int Interface::letterToColumn(const std::string letter)
 {
-	if (letter == "a") { return 0; }
-	else if (letter == "b") { return 1; }
-	else if (letter == "c") { return 2; }
-	else if (letter == "d") { return 3; }
-	else if (letter == "e") { return 4; }
-	else if (letter == "f") { return 5; }
-	else if (letter == "g") { return 6; }
-	else if (letter == "h") { return 7; }
+	if (letter == "A") { return 0; }
+	else if (letter == "B") { return 1; }
+	else if (letter == "C") { return 2; }
+	else if (letter == "D") { return 3; }
+	else if (letter == "E") { return 4; }
+	else if (letter == "F") { return 5; }
+	else if (letter == "G") { return 6; }
+	else if (letter == "H") { return 7; }
 
 }
 
@@ -199,19 +201,18 @@ int Interface::letterToColumn(const std::string letter)
 *
 *
 * @param The array value for the row input from user
-* @see Interface::letterToColumn
 */
 
 int Interface::NumberToRow(const int Row)
 {
-	if (Row == 0) { return 0; }
-	else if (Row == 1) { return 1; }
-	else if (Row == 2) { return 2; }
-	else if (Row == 3) { return 3; }
-	else if (Row == 4) { return 4; }
-	else if (Row == 5) { return 5; }
-	else if (Row == 6) { return 6; }
-	else if (Row == 7) { return 7; }
+	if (Row == 1) { return 0; }
+	else if (Row == 2) { return 1; }
+	else if (Row == 3) { return 2; }
+	else if (Row == 4) { return 3; }
+	else if (Row == 5) { return 4; }
+	else if (Row == 6) { return 5; }
+	else if (Row == 7) { return 6; }
+	else if (Row == 8) { return 7; }
 }
 
 
@@ -222,6 +223,10 @@ int Interface::NumberToRow(const int Row)
 *
 */
 void Interface::printLogo(void)
+// Jerome Vonk
+// Chess Console Game in C++ (Logo)
+// 2016
+// https://www.codeproject.com/Articles/1214018/Chess-Console-Game-in-Cplusplus
 {
 	cout << "===============================================\n";
 	cout << "       _____ _    _ ______  _____ _____\n";
