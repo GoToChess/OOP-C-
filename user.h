@@ -67,46 +67,61 @@ public:
 int* Interface::userInput()
 {
 
-
-	cout << "________________________________________" << endl;
-	cout << endl << "user's go... " << endl;
-	cout << endl;
-
-	cout << "Enter the coordinates of the piece you want to move. (eg A1)";
-	cin >> startPos;
-	cout << endl;
-	cout << "Enter the coordinates of the location you want to move to. (eg A2)";
-	cin >> endPos;
-
-	char startChar = startPos[0];
-	char startInt = startPos[1];
-	char destChar = endPos[0];
-	char destInt = endPos[1];
+	// Creating ASCII variables for input validation between A and H
+	char A = 'A';
+	char H = 'H';
+	int ascii_A = int(A);
+	int ascii_H = int(H);
 
 
-	if (strlen(startPos) != 2 ||
-		startChar < 'A' || startChar > 'H' ||
-		startInt < '1' || startInt > '8') 
-	{
-		cout<< "Your inputted move, " << startPos << ", is invalid." << endl;
-		cout << "Please enter the coordinates of the piece you want to move. (eg A1)";
+
+		cout << endl << "________________________________________" << endl;
+		cout << endl << "user's go... " << endl;
+		cout << endl;
+
+		cout << "Enter the coordinates of the piece you want to move. (eg A1): ";
 		cin >> startPos;
-	}
-	if else(strlen(endPos) != 2 ||
-		destChar < 'A' || destChar > 'H' ||
-		destInt < '1' || destInt > '8')
-	{
-		cerr << "Your inputted move, " << endPos << ", is invalid." << endl;
-		cout << "Enter the coordinates of the location you want to move to. (eg A2)";
+		cout << endl;
+		cout << "Enter the coordinates of the location you want to move to. (eg A2): ";
 		cin >> endPos;
-	}
 
+	
+		while(1)
+		{
 
-	else 
-	{ // Update the array if input is valid 
+			char startChar = startPos[0];
+			int SCascii = startChar;
+			int startInt = startPos[1];
+			
+			char destChar = endPos[0];
+			int DCascii = destChar;
+			int destInt = endPos[1];
+			
+			// Input validation to make sure x value falls between A and H and the y is between 1 and 8
+			if (!((SCascii >= ascii_A && SCascii <= ascii_H) || (startInt >= 1 && startInt <= 8)))
+			{
+				cout << "Your inputted move, " << startPos << ", is invalid." << endl;
+				cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
+				cin >> startPos;
+				cout << endl;
+			}
+
+			
+			else if (!((DCascii >= ascii_A && DCascii <= ascii_H) || (startInt >= 1 && startInt <= 8)))
+			{
+				cout << "Your inputted move, " << endPos << ", is invalid." << endl;
+				cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
+				cin >> startPos;
+				cout << endl;
+			}
+
+			else
+				break;
+		}
+	
 
 		cout << endl;
-		cout << "You have selected the piece at " << endPos << " and want to move it to " << startPos << endl;
+		cout << "You have selected the piece at " << startPos << " and want to move it to " << endPos << endl;
 
 		//Convert input to matrix coordinates that can be used by program
 		startx = letterToColumn(startPos.substr(0, 1));  // takes a sub string of the column (char) of the input 
@@ -122,7 +137,7 @@ int* Interface::userInput()
 		c[3] = endy;
 
 		return c;
-	}
+	
 }
 
 
@@ -214,7 +229,7 @@ void Interface::printLogo(void)
 	cout << "     | |    | |__| | |__  | (___| (___ \n";
 	cout << "     | |    |  __  |  __|  \\___ \\\\___ \\ \n";
 	cout << "     | |____| |  | | |____ ____) |___) |\n";
-	cout << "     \\_____|_|  |_|______|_____/_____/\n\n";
+	cout << "      \\_____|_|  |_|______|_____/_____/\n\n";
 	cout << "===============================================\n\n";
 	cout << " Created by Ruairi, Eamon, Jack, Eoin and Harry \n";
 	cout << "===============================================\n\n";
