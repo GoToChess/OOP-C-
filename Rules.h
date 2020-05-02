@@ -19,14 +19,14 @@
 
 class Rules
 {
-	//RULES THAT NEED CONSIDERED, EN PASSANT, PAWN PROMOTION, CASTLING 
-
+	//private functions used by moveLegal
 	int Pawn_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8], char colour); 
 	int Rook_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
 	int Bishop_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
 	int Queen_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
 	int Knight_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
 	int King_rules(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
+	//private function used by incheck
 	int squareattack(int row, int column, char attacking_colour, Piece Matrix[8][8]);
 
 public:
@@ -151,7 +151,7 @@ int Rules::Pawn_rules(int sourcex, int sourcey, int destx, int desty, Piece Matr
 		forward = 1;
 		startingrow = 1;
 	}
-	//POSSBILE TODO: EN PASSANT   
+	
 
 	//on starting move pawn may move 2 squares if both squares in front of it are free
 	if ((sourcex == startingrow) && (destx == (sourcex + 2 * (forward))) && (desty == sourcey) && (Matrix[destx][desty].getType() == '_') && (Matrix[sourcex + forward][sourcey].getType() == '_')) return 1;
@@ -369,9 +369,8 @@ int Rules::King_rules(int sourcex, int sourcey, int destx, int desty, Piece Matr
 */
 int Rules::moveLegal(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8])
 {
-	//will return 1 if move is legal or 0 if move is illegal
-	//need functionality to find out if the piece they are attempting to move actually belongs to them, team up with Eamon for this.
-	int movement;
+	//definining variables needed
+	int movement, checked;
 	chessBoard board;
 	Piece MatrixCopy[8][8];
 
@@ -386,7 +385,7 @@ int Rules::moveLegal(int sourcex, int sourcey, int destx, int desty, Piece Matri
 	if (POI_Colour == '_' || POI_Type == '_') return 0; //cannot move an empty piece
 	if (sourcex > 7 || sourcey > 7 || destx > 7 || desty > 7 || sourcex < 0 || sourcey < 0 || destx < 0 || desty < 0) return 0;//not allowed outside the bounds of the array
 	if ((sourcex == destx) && (sourcey == desty)) return 0;//can't move a piece to the same square
-	if ((POI_Colour == Matrix[destx][desty].getColour())) return 0;//can't move a piece to a square which i s occupied by a piece of the same colour
+	if ((POI_Colour == Matrix[destx][desty].getColour())) return 0;//can't move a piece to a square which is occupied by a piece of the same colour
 
 
 	switch (POI_Type) {
@@ -415,7 +414,7 @@ int Rules::moveLegal(int sourcex, int sourcey, int destx, int desty, Piece Matri
 	if (movement == 0) return movement;
 
 	
-	//now assessing if whether or not making the move, would in turn leave the player's own king in check (through a discovery for example)
+	//now assessing if whether or not making the move, would in turn leave the player's own king in check (through a discovery or if moving the king directly)
 	char piecetype;
 	char piececolour;
 
@@ -431,18 +430,13 @@ int Rules::moveLegal(int sourcex, int sourcey, int destx, int desty, Piece Matri
 	}
 
 	//std::cout << "end of for loops" << std::endl;
-	//make the proposed move, takes parameters in different order...
+	//make the proposed move,  (this function takes parameters in different order)
 	board.movePiece(MatrixCopy, sourcey, sourcex, desty, destx);
 
-	int checked;
-	//if after that move the player's king would be left in check, that is not a legal move.
+
+	//checking to see if that move the player's king would be left in check, that is not a legal move.
 	checked = incheck(POI_Colour, MatrixCopy);
 	if (checked == 1) return 0;
 	else return 1;
-
-
-
-
-
 
 }
