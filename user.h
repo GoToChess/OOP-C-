@@ -54,7 +54,8 @@ public:
 /**
 * Gets the input from the user and converts in to array form
 *
-* Gets the coordinates from the user and using the conversion functions,
+* Gets input from the user and checks if this input is valid. 
+* Converts these input coordinates using the conversion functions and
 * changes the input into an array that can work with the rest of the program
 *
 *
@@ -66,6 +67,7 @@ public:
 int* Interface::userInput()
 {
 
+
 	cout << "________________________________________" << endl;
 	cout << endl << "user's go... " << endl;
 	cout << endl;
@@ -75,23 +77,52 @@ int* Interface::userInput()
 	cout << endl;
 	cout << "Enter the coordinates of the location you want to move to. (eg A2)";
 	cin >> endPos;
-	cout << endl;
-	cout << "You have selected the piece at " << endPos << " and want to move it to " << startPos << endl;
 
-	//Convert input to matrix coordinates that can be used by program
-	startx = letterToColumn(startPos.substr(0, 1));  // takes a sub string of the column (char) of the input 
-	starty = NumberToRow(stoi(startPos.substr(1, 1)));  // takes a sub string of the row (converted to int) of the input
+	char startChar = startPos[0];
+	char startInt = startPos[1];
+	char destChar = endPos[0];
+	char destInt = endPos[1];
 
-	endx = letterToColumn(endPos.substr(0, 1));  // takes a sub string of the column (char) of the input 
-	endy = NumberToRow(stoi(endPos.substr(1, 1)));    // takes a sub string of the row (converted to int) of the input
 
-	// Stores all input coordinates together as an array
-	c[0] = startx;
-	c[1] = starty;
-	c[2] = endx;
-	c[3] = endy;
+	if (strlen(startPos) != 2 ||
+		startChar < 'A' || startChar > 'H' ||
+		startInt < '1' || startInt > '8') 
+	{
+		cout<< "Your inputted move, " << startPos << ", is invalid." << endl;
+		cout << "Please enter the coordinates of the piece you want to move. (eg A1)";
+		cin >> startPos;
+	}
+	if else(strlen(endPos) != 2 ||
+		destChar < 'A' || destChar > 'H' ||
+		destInt < '1' || destInt > '8')
+	{
+		cerr << "Your inputted move, " << endPos << ", is invalid." << endl;
+		cout << "Enter the coordinates of the location you want to move to. (eg A2)";
+		cin >> endPos;
+	}
 
-	return c;
+
+	else 
+	{ // Update the array if input is valid 
+
+		cout << endl;
+		cout << "You have selected the piece at " << endPos << " and want to move it to " << startPos << endl;
+
+		//Convert input to matrix coordinates that can be used by program
+		startx = letterToColumn(startPos.substr(0, 1));  // takes a sub string of the column (char) of the input 
+		starty = NumberToRow(stoi(startPos.substr(1, 1)));  // takes a sub string of the row (converted to int) of the input
+
+		endx = letterToColumn(endPos.substr(0, 1));  // takes a sub string of the column (char) of the input 
+		endy = NumberToRow(stoi(endPos.substr(1, 1)));    // takes a sub string of the row (converted to int) of the input
+
+		// Stores all input coordinates together as an array
+		c[0] = startx;
+		c[1] = starty;
+		c[2] = endx;
+		c[3] = endy;
+
+		return c;
+	}
 }
 
 
