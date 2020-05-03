@@ -1,179 +1,186 @@
-#include <iostream>
-using namespace std;
+#pragma once
 
-class chessBoard
+/**
+*A header file containing board class for board display, and declaration of board layout
+*
+*@author Harry Hawkes <hawkes-h@ulster.ac.uk>
+*@license http://www.gnu.org/copyleft/gpl.html
+*@copyright Harry Hawkes 2020
+*
+*/
+
+#include <iostream>
+
+//Creates a macros to define characters to make up white and black graphical squares 
+//using ASCII characters
+#define WHITESQUARES 0xDB 
+#define BLACKSQUARES 0xFF 
+
+class Board
 {
-    
+/**
+*A class that defines a chess board
+*
+*@author Harry Hawkes <hawkes-h@ulster.ac.uk>
+*
+*/
+
 private:
-    //Creating a character array, for inital board layout i.e. a visual representation for the console
-    char dispBoard[34][36] =
-    {
-        {' ', ' ', ' ', ' ', ' ', 'A', ' ', ' ', ' ', 'B', ' ', ' ', ' ', 'C', ' ', ' ', ' ', 'D', ' ', ' ', ' ', 'E', ' ', ' ', ' ', 'F', ' ', ' ', ' ', 'G', ' ', ' ', ' ', 'H', ' ', ' '},
-        {' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', '1', ' ', '#', ' ', 'R', ' ', '#', ' ', 'N', ' ', '#', ' ', 'B', ' ', '#', ' ', 'K', ' ', '#', ' ', 'Q', ' ', '#', ' ', 'B', ' ', '#', ' ', 'N', ' ', '#', ' ', 'R', ' ', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', '2', ' ', '#', ' ', 'P', ' ', '#', ' ', 'P', ' ', '#', ' ', 'P', ' ', '#', ' ', 'P', ' ', '#', ' ', 'P', ' ', '#', ' ', 'P', ' ', '#', ' ', 'P', ' ', '#', ' ', 'P', ' ', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', '3', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', '4', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', '5', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', '6', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', '7', ' ', '#', ' ', 'p', ' ', '#', ' ', 'p', ' ', '#', ' ', 'p', ' ', '#', ' ', 'p', ' ', '#', ' ', 'p', ' ', '#', ' ', 'p', ' ', '#', ' ', 'p', ' ', '#', ' ', 'p', ' ', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', '8', ' ', '#', ' ', 'r', ' ', '#', ' ', 'n', ' ', '#', ' ', 'b', ' ', '#', ' ', 'k', ' ', '#', ' ', 'q', ' ', '#', ' ', 'b', ' ', '#', ' ', 'r', ' ', '#', ' ', 'n', ' ', '#'},
-        {' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#', ' ', ' ', ' ', '#'},
-        {' ', ' ', ' ', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#', '#'},
-        
-    };
-    
-    
-    
+    //Board class variables that can be used privetly
+
+    //ASCII Character for white and black are rectangular, squareCharSize defines a width as to make them
+    //Square, 6 Characters wide.
+    int squareCharSize = 6;
+
 public:
-    //Class Functions
-    void movePiece(Piece Array[8][8], int firstCol, int firstRow, int lastCol, int lastRow); //To move a piece around the board
-    void updateDispBoard(int firstCol, int firstRow, int lastCol, int lastRow); //Updating visual board
-    void boardDisplay(); //Displaying the board at the present time
-    
+    //Board class Functions that can be used publicly to display board
+    void print_board(Piece matrix[8][8]);
+    void printRow(int mainRow, int firstColour, int secondColour, Piece Matrix[8][8]);
     
 };
 
+//Use of the 'Pieces' class from Pieces.h to create pieces for the board
+//Piece constructor used to set colour and type of piece
+Piece piece1('W', 'p'), piece2('W', 'r'), piece3('W', 'n'), piece4('W', 'b'), piece5('W', 'k'), piece6('W', 'q'), piece7('_', '_'), piece8('B', 'P'), piece9('B', 'R'), piece10('B', 'N'), piece11('B', 'B'), piece12('B', 'K'), piece13('B', 'Q');
 
+//Creating an 8x8 matrix array of declared pieces
+//Sets inital board setup
+Piece matrix[8][8] = {
+    {piece1, piece1, piece1, piece1, piece1, piece1, piece1, piece1},
+    {piece2, piece3, piece4, piece5, piece6, piece4, piece3, piece2},
+    {piece7, piece7, piece7, piece7, piece7, piece7, piece7, piece7},
+    {piece7, piece7, piece7, piece7, piece7, piece7, piece7, piece7},
+    {piece7, piece7, piece7, piece7, piece7, piece7, piece7, piece7},
+    {piece7, piece7, piece7, piece7, piece7, piece7, piece7, piece7},
+    {piece9, piece10, piece11, piece12, piece13, piece11, piece10, piece9},
+    {piece8, piece8, piece8, piece8, piece8, piece8, piece8, piece8}
+};
 
-
-void chessBoard::movePiece(Piece Array[8][8], int firstCol, int firstRow, int lastCol, int lastRow)
+void Board::print_board(Piece matrix[8][8])
 {
-    //A function to Move Pieces
-    //Takes inputs: an array of pieces, as well as complete move coordinates
-    
-    //Initialisation arrays for move coordinates can be stored
-    int initLoc[2] = {0, 0};
-    int moveToLoc[2] = {0, 0};
-    
-    //Setting elements indexs for two arrays to represent rows and columns
-    initLoc[0] = firstRow;
-    initLoc[1] = firstCol;
-    
-    moveToLoc[0] = lastRow;
-    moveToLoc[1] = lastCol;
-    
-    
-    //Inital realBoard array
-    //std::cout<< "Printing realBoard array...\n";
-    //for(int i = 0; i<8; i++){
-    //for(int j = 0; j<8; j++){
-    //std::cout<< Array[i][j].getType() << " ";;
-    //}
-    
-    //std::cout << "\n";
-    //}
-    
-    std::cout << "\n";
-    
-    //Storing inital Piece Type, and last Piece Type
-    char initType = Array[initLoc[0]][initLoc[1]].getType();
-    char initColour = Array[initLoc[0]][initLoc[1]].getColour();
-    
-    char moveToType = Array[moveToLoc[0]][moveToLoc[1]].getType();
-    char moveToColour = Array[moveToLoc[0]][moveToLoc[1]].getColour();
-    
-    //Switching piece types to make move occur
-    if(moveToType == '_')
-    {
-        Array[initLoc[0]][initLoc[1]].input(moveToColour, moveToType);
-        Array[moveToLoc[0]][moveToLoc[1]].input(initColour, initType);
-    }
-    else
-    {
-        Array[initLoc[0]][initLoc[1]].input('_', '_');
-        Array[moveToLoc[0]][moveToLoc[1]].input(initColour, initType);
-    }
-    
-    std::cout << "\n";
-    
-    //Printing realBoard after move
-    //std::cout << "Real Board After Move...\n";
-    //for(int i = 0; i<8; i++){
-    //for(int j = 0; j<8; j++){
-    //std::cout<< Array[i][j].getType() << " ";;
-    //}
-    
-    //std::cout << "\n";
-    //}
-    
-}
+    /**
+    *@author Harry Hawkes <hawkes-h@ulster.ac.uk>
+    *
+    *Function to display a visual representation of the board
+    *
+    *@param matrix[8][8] - an 8x8 matrix array containing layout of the board pieces
+    *@return void (nothing)
+    */
 
-void chessBoard::updateDispBoard(int firstCol, int firstRow, int lastCol, int lastRow)
-{
-    //A member function, in order to update visual board
-    //Takes inputs of all move coordinates
-    
-    //Conversion of real Co-ordinates mapped to Display Board
-    //An array to store move coordinates
-    int coordArray[4] = {firstCol, firstRow, lastCol, lastRow};
-    
-    //Display board equivelent coordinates, to that of real board.
-    //dispArrayCoord[0] = rows of display board, dispArrayCoord[1] = columns of display board
-    int dispArrayCoord[2][8] =
-    {
-        {3, 7, 11, 15, 19, 23, 27, 31},
-        {5, 9, 13, 17, 21, 25, 29, 31}
-    };
-    
-    //Getting inital row/column value
-    int initRow = dispArrayCoord[0][coordArray[1]];
-    //std::cout << "Inital Row ..."<< initRow << " \n";
-    int initCol = dispArrayCoord[1][coordArray[0]];
-    //std::cout << "Inital Column ..."<< initCol << " \n";
-    
-    //Getting final row/column value
-    int finalRow = dispArrayCoord[0][coordArray[3]];
-    //std::cout << "Final Row ..."<< finalRow << " \n";
-    int finalCol = dispArrayCoord[1][coordArray[2]];
-    //std::cout << "Final Column ..."<< finalCol << " \n";
-    
-    //Displaying char in the char array dispBoard... not working
-    char initChar = dispBoard[initRow][initCol];
-    //std::cout << "Inital Char ..."<< dispBoard[initRow][initCol] << " \n";
-    
-    
-    char lastChar = dispBoard[finalRow][finalCol];
-    //std::cout << "Final Char ..." << lastChar << " \n";
-    
-    //Setting the char at inital and final positions equal to each other for the change
-    dispBoard[initRow][initCol] = lastChar;
-    dispBoard[finalRow][finalCol] = initChar;
-    
-}
+    //Printing to console the letter corosponding to column of board, at top of board
+    cout << "   A     B     C     D     E     F     G     H\n\n";
 
-void chessBoard::boardDisplay()
-{
-    //A function to display the visual board at present
-    
-    //For loop to iterate through each character in the board array.
-    for(int i = 0; i<34; i++){
-        for(int j = 0; j<36; j++){
-            std::cout<< dispBoard[i][j]<< " ";;
+    //For loop to iterate through each row on board, starting at bottom of board
+    for (int mainRow = 7; mainRow >= 0; mainRow--)
+    {
+        //Nested if/else statement to print each row
+        if (mainRow % 2 == 0)
+        {
+            //For row starting with a black squares i.e. 0/2/4/6, runs printLine function to
+            //display row, with corrosponding pieces according to 8x8 matrix
+            printRow(mainRow, BLACKSQUARES, WHITESQUARES, matrix);
         }
-        
-        std::cout << "\n";
+
+        else
+        {
+            ////For row starting with a white squares i.e. 1/3/5/7, runs printLine function to
+            //display row, with corrosponding pieces according to 8x8 matrix
+            printRow(mainRow, WHITESQUARES, BLACKSQUARES, matrix);
+        }
+    }
+}
+
+void Board::printRow(int mainRow, int firstColour, int secondColour, Piece Matrix[8][8])
+{
+    /**
+    *@author Harry Hawkes <hawkes-h@ulster.ac.uk>
+    *
+    *A function that can be used to print out an indiviual row on the board,
+    *corrosponding to an 8x8 matrix array
+    *
+    *@param mainRow
+    *@param firstColour
+    *@param secondColour
+    *@param Matrix[8][8] - an 8x8 matrix array containing layout of the board pieces
+    */
+
+    //For loop that will iterate through sub characters that make up 1 square.
+    for (int subLine = 0; subLine < squareCharSize / 2; subLine++)
+    {
+        //Nested for loop to split squares into pairs i.e. 4 white, 4 black
+        for (int squarePair = 0; squarePair < 4; squarePair++)
+        {
+            //Nested for loop going throuh first square of pair
+            for (int subColumn = 0; subColumn < squareCharSize; subColumn++)
+            {
+                //If/else statement to determine centre of square
+                if (subLine == 1 && subColumn == 3)
+                {
+                    //Using a ternary operatator to display piece type, in position,
+                    //if it isnt a blank piece
+                    if (Matrix[mainRow][squarePair * 2 + 1].getType() != '_')
+                    {
+                        //Nested if/else to display convert white pieces to lower case
+                        if (Matrix[mainRow][squarePair * 2].getColour() == 'W')
+                        {   
+                            //Printing lower case piece type
+                            std::cout << char(tolower(Matrix[mainRow][squarePair * 2].getType()));
+                        }
+                        else
+                        {
+                            std::cout << Matrix[mainRow][squarePair * 2].getType();
+                        }
+                    }
+                    else
+                    {
+                        std::cout << char(firstColour);
+                    }
+                }
+                //Else prints out square colour character i.e. white char/black char
+                else
+                {
+                    cout << char(firstColour);
+                }
+            }
+
+            //Nested for loop going throuh second square of pair
+            for (int subColumn = 0; subColumn < squareCharSize; subColumn++)
+            {
+                //If/else statement to determine centre of square
+                if (subLine == 1 && subColumn == 3)
+                {
+                    //Nested if/else to display piece type, in position,
+                    //if it isnt a blank piece
+                    if (Matrix[mainRow][squarePair * 2 + 1].getType() != '_')
+                    {
+                        //Nested if/else to display convert white pieces to lower case
+                        if (Matrix[mainRow][squarePair * 2 + 1].getColour() == 'W')
+                        {
+                            //Printing lower case piece type
+                            std::cout << char(tolower(Matrix[mainRow][squarePair * 2 + 1].getType()));
+                        }
+                        else
+                        {
+                            std::cout << Matrix[mainRow][squarePair * 2 + 1].getType();
+                        }
+                    }
+                    else
+                    {
+                        std::cout << char(secondColour);
+                    }
+                }
+                //Else prints out square colour character i.e. white char/black char
+                else
+                {
+                    cout << char(secondColour);
+                }
+            }
+        }
+        //If statement to print out row number beside row, in centre of square
+        if (1 == subLine)
+        {
+            cout << "  " << mainRow + 1;
+        }
+        cout << "\n";
     }
 }
