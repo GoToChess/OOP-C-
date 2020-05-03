@@ -76,7 +76,7 @@ int* Interface::userInput()
 
 
 
-		cout << "________________________________________" << endl;
+		cout << endl << "________________________________________" << endl;
 		cout << endl << "user's go... " << endl;
 		cout << endl;
 
