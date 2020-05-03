@@ -20,14 +20,13 @@ int main()
 	int difficulty;
 	int userturn = 1;
 
-	cout << "welcome " << endl;
 
 	cpu move1(&difficulty);
 	Interface move;
 	Rules king;
 	situations piece;
 	Board chess;
-
+	move.printLogo();
 
 	while (1)
 	{
