@@ -12,9 +12,6 @@
 #include <cstdlib>
 #include <iostream>
 #include "Piece.h"
-#include "board.h"
-
-
 
 
 class Rules
@@ -371,7 +368,6 @@ int Rules::moveLegal(int sourcex, int sourcey, int destx, int desty, Piece Matri
 {
 	//definining variables needed
 	int movement, checked;
-	chessBoard board;
 	Piece MatrixCopy[8][8];
 
 
@@ -429,9 +425,10 @@ int Rules::moveLegal(int sourcex, int sourcey, int destx, int desty, Piece Matri
 		}
 	}
 
-	//std::cout << "end of for loops" << std::endl;
-	//make the proposed move,  (this function takes parameters in different order)
-	board.movePiece(MatrixCopy, sourcey, sourcex, desty, destx);
+	//make the proposed move on the copy of the board, by changing the colour and type of the destination and source squares
+	MatrixCopy[destx][desty].input(POI_Colour, POI_Type);
+	MatrixCopy[sourcex][sourcey].input('_','_');
+
 
 
 	//checking to see if that move the player's king would be left in check, that is not a legal move.
