@@ -9,8 +9,12 @@
 * @License http ://www.gnu.org/copyleft/gpl.html
 * @copyright Eamon McGill 2020
 */
+
 #include <string>
 #include "computer.h"
+
+
+using namespace std;
 
 class Interface
 {
@@ -21,9 +25,11 @@ private:
 	// rown Input conversion 
 	int NumberToRow(int Row);
 
+	// 
 	int startx, starty, endx, endy;
 	char myColour;
 	Rules check;
+	Piece piece7;
 
 
 public:
@@ -42,6 +48,8 @@ public:
 
 	// Final Array to be returned from user Input
 	int* c = new int[4];
+
+	void printLogo(void); 
 };
 
 
@@ -59,35 +67,84 @@ public:
 
 int* Interface::userInput()
 {
+
 	playergo = 1;
+	// Creating ASCII for input validation between A and H
+	char A = 'A';
+	char H = 'H';
+	int ascii_A = int(A);
+	int ascii_H = int(H);
+
 
 
 	cout << "________________________________________" << endl;
 	cout << endl << "user's go... " << endl;
 	cout << endl;
 
-	cout << "Enter the coordinates of the piece you want to move. (eg A7)";
+	cout << "Enter the coordinates of the piece you want to move. (eg A1): ";
 	cin >> startPos;
 	cout << endl;
-	cout << "Enter the coordinates of the location you want to move to. (eg A6)";
+	cout << "Enter the coordinates of the location you want to move to. (eg A2): ";
 	cin >> endPos;
-	cout << endl;
 
-	//Convert input to matrix coordinates that can be used by program
-	startx = letterToColumn(startPos.substr(0, 1));  // takes a sub string of the column (char) of the input 
-	starty = NumberToRow(stoi(startPos.substr(1, 1)));  // takes a sub string of the row (converted to int) of the input
+	
+	while(1)
+	{
 
-	endx = letterToColumn(endPos.substr(0, 1));  // takes a sub string of the column (char) of the input 
-	endy = NumberToRow(stoi(endPos.substr(1, 1)));    // takes a sub string of the row (converted to int) of the input
+		char startChar = startPos[0];
+		int SCascii = startChar;
+		int startInt = startPos[1];
+			
+		char destChar = endPos[0];
+		int DCascii = destChar;
+		int destInt = endPos[1];
+			
+		// Input validation to make sure x value falls between A and H and the y is between 1 and 8
+		if (!((SCascii >= ascii_A && SCascii <= ascii_H) || (startInt >= 0 && startInt < 8)))
+		{
+			cout << "Your inputted move, " << startPos << ", is invalid." << endl;
+			cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
+			cin >> startPos;
+			cout << endl;
+		}
 
-	// Stores all input coordinates together as an array
-	c[0] = startx;
-	c[1] = starty;
-	c[2] = endx;
-	c[3] = endy;
+			
+		else if (!((DCascii >= ascii_A && DCascii <= ascii_H) || (startInt >= 0 && startInt < 8)))
+		{
+			cout << "Your inputted move, " << endPos << ", is invalid." << endl;
+			cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
+			cin >> startPos;
+			cout << endl;
+		}
 
-	return c;
+		else
+			break;
+	}
+	
+		// Continues with program if inputs pass validation
+		cout << endl;
+		cout << "You have selected the piece at " << startPos << " and want to move it to " << endPos << endl;
+
+		//Convert input to matrix coordinates that can be used by program
+		startx = letterToColumn(startPos.substr(0, 1));  // takes a sub string of the column (char) of the input 
+		starty = NumberToRow(stoi(startPos.substr(1, 1)));  // takes a sub string of the row (converted to int) of the input
+
+		endx = letterToColumn(endPos.substr(0, 1));  // takes a sub string of the column (char) of the input 
+		endy = NumberToRow(stoi(endPos.substr(1, 1)));    // takes a sub string of the row (converted to int) of the input
+
+		// Stores all input coordinates together as an array
+		c[0] = startx;
+		c[1] = starty;
+		c[2] = endx;
+		c[3] = endy;
+
+		// for testing 
+
+		std::cout << "Starting coordinate array: " << c[0] << c[1] << " Destination coordinate array: " << c[2] << c[3];
+		return c;
+
 }
+
 
 
 /**
@@ -108,38 +165,15 @@ void Interface::movePiece(Piece Matrix[8][8])
 	//check selected position is a valid piece of users colour
 	if (myColour == 'W')
 	{
-		cout << "Can't do that, try again" << endl;
+		cout << "That piece isn't the correct colour!" << endl;
 	}
 	else if (check.moveLegal(c[1], c[0], c[3], c[2], Matrix))
 	{
 		Matrix[c[3]][c[2]] = Matrix[c[1]][c[0]]; // changing the source piece to the dest piece
 		Matrix[c[1]][c[0]] = piece7; // empty space object piece
-		playergo = 0; // integer to change to the computer's go
+		playergo = 0; // pointer to change to the computer's go
 	}
 }
-
-
-
-/**
-* Takes the user coordinates input and converts to corresponding array value
-*
-* @param
-* @return newInput which is the positioon selected by the user in array formmat
-*/
-
-/*
-int Interface::convArray()
-{
-	int convColumn;
-	int convRow;
-	//Convert input to matrix coordinates that can be used by program
-	convColumn = letterToColumn(startPos.substr(0, 1));  // takes the column (char) of the input
-	convRow = NumberToRow(startPos.substr(1, 2));         // takes the row (int) of the input
-	newInput[0] = convColumn;
-	newInput[1] = convRow;
-	return newInput;
-}
-*/
 
 
 
@@ -152,14 +186,14 @@ int Interface::convArray()
 */
 int Interface::letterToColumn(const std::string letter)
 {
-	if (letter == "a") { return 0; }
-	else if (letter == "b") { return 1; }
-	else if (letter == "c") { return 2; }
-	else if (letter == "d") { return 3; }
-	else if (letter == "e") { return 4; }
-	else if (letter == "f") { return 5; }
-	else if (letter == "g") { return 6; }
-	else if (letter == "h") { return 7; }
+	if (letter == "A") { return 0; }
+	else if (letter == "B") { return 1; }
+	else if (letter == "C") { return 2; }
+	else if (letter == "D") { return 3; }
+	else if (letter == "E") { return 4; }
+	else if (letter == "F") { return 5; }
+	else if (letter == "G") { return 6; }
+	else if (letter == "H") { return 7; }
 
 }
 
@@ -172,12 +206,37 @@ int Interface::letterToColumn(const std::string letter)
 
 int Interface::NumberToRow(const int Row)
 {
-	if (Row == 0) { return 0; }
-	else if (Row == 1) { return 1; }
-	else if (Row == 2) { return 2; }
-	else if (Row == 3) { return 3; }
-	else if (Row == 4) { return 4; }
-	else if (Row == 5) { return 5; }
-	else if (Row == 6) { return 6; }
-	else if (Row == 7) { return 7; }
+	if (Row == 1) { return 0; }
+	else if (Row == 2) { return 1; }
+	else if (Row == 3) { return 2; }
+	else if (Row == 4) { return 3; }
+	else if (Row == 5) { return 4; }
+	else if (Row == 6) { return 5; }
+	else if (Row == 7) { return 6; }
+	else if (Row == 8) { return 7; }
+}
+
+
+
+/**
+* Prints out a logo for aesthetics
+*
+*
+*/
+void Interface::printLogo(void)
+// Jerome Vonk
+// Chess Console Game in C++
+// 2016
+// https://www.codeproject.com/Articles/1214018/Chess-Console-Game-in-Cplusplus
+{
+	cout << "===============================================\n";
+	cout << "       _____ _    _ ______  _____ _____\n";
+	cout << "      / ____| |  | |  ____|/ ____/ ____|\n";
+	cout << "     | |    | |__| | |__  | (___| (___ \n";
+	cout << "     | |    |  __  |  __|  \\___ \\\\___ \\ \n";
+	cout << "     | |____| |  | | |____ ____) |___) |\n";
+	cout << "      \\_____|_|  |_|______|_____/_____/\n\n";
+	cout << "===============================================\n\n";
+	cout << " Created by Ruairi, Eamon, Jack, Eoin and Harry \n";
+	cout << "===============================================\n\n";
 }
