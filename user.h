@@ -37,7 +37,7 @@ public:
 	// Initial startup 
 	int* userInput();
 
-	int* playergo;
+	int playergo;
 
 	//Function to allow movelegal() to check if the user has selected the correct colour
 	void movePiece(Piece Matrix[8][8]);
@@ -68,6 +68,7 @@ public:
 int* Interface::userInput()
 {
 
+	playergo = 1; // setting to users turn
 	// Creating ASCII for input validation between A and H
 	char A = 'A';
 	char H = 'H';
@@ -76,49 +77,65 @@ int* Interface::userInput()
 
 
 
-		cout << endl << "________________________________________" << endl;
-		cout << endl << "user's go... " << endl;
-		cout << endl;
+	cout << endl << "________________________________________" << endl;
+	cout << endl << "user's go... " << endl;
+	cout << endl;
 
-		cout << "Enter the coordinates of the piece you want to move. (eg A1): ";
-		cin >> startPos;
-		cout << endl;
-		cout << "Enter the coordinates of the location you want to move to. (eg A2): ";
-		cin >> endPos;
+	// collecting user input
+	cout << "Enter the coordinates of the piece you want to move. (eg A1): ";
+	cin >> startPos;
+	cout << endl;
+	cout << "Enter the coordinates of the location you want to move to. (eg A2): ";
+	cin >> endPos;
 
 	
-		while(1)
+	while(1)
+	{
+		
+		char startChar = startPos[0]; // The column of starting pos
+		int SCascii = startChar;
+		int startInt = stoi(startPos.substr(1, 1)); // The row of starting pos
+			
+		char destChar = endPos[0]; // The colum of detsination pos
+		int DCascii = destChar;
+		int destInt = stoi(endPos.substr(1, 1)); // The row of starting pos
+
+		// Input validation to make sure starting column value falls between A and H
+		if (!(SCascii >= ascii_A && SCascii <= ascii_H))
 		{
-
-			char startChar = startPos[0];
-			int SCascii = startChar;
-			int startInt = startPos[1];
-			
-			char destChar = endPos[0];
-			int DCascii = destChar;
-			int destInt = endPos[1];
-			
-			// Input validation to make sure x value falls between A and H and the y is between 1 and 8
-			if (!((SCascii >= ascii_A && SCascii <= ascii_H) || (startInt >= 1 && startInt <= 8)))
-			{
-				cout << "Your inputted move, " << startPos << ", is invalid." << endl;
-				cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
-				cin >> startPos;
-				cout << endl;
-			}
-
-			
-			else if (!((DCascii >= ascii_A && DCascii <= ascii_H) || (destInt >= 1 && destInt <= 8)))
-			{
-				cout << "Your inputted move, " << endPos << ", is invalid." << endl;
-				cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
-				cin >> startPos;
-				cout << endl;
-			}
-
-			else
-				break;
+			cout << "Your inputted start column, " << startChar << ", is invalid." << endl;
+			cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
+			cin >> startPos;
+			cout << endl;
 		}
+		// Input validation to make sure starting row value falls between 1-8
+		else if (!((startInt >= 1 && startInt <= 8)))
+		{
+			cout << "Your inputted start row, " << startInt << ", is invalid." << endl;
+			cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
+			cin >> startPos;
+			cout << endl;
+		}
+		// Input validation to make sure destination column value falls between A and H
+		else if (!((DCascii >= ascii_A && DCascii <= ascii_H)))
+		{
+			cout << "Your destination column, " << destChar << ", is invalid." << endl;
+			cout << "Enter the coordinates of the detination you want to move to. (eg A1) : ";
+			cin >> endPos;
+			cout << endl;
+		}
+		// Input validation to make sure destination row value falls between 1-8
+		else if (!((destInt >= 1 && destInt <= 8)))
+		{
+			cout << "Your destination row, " << destInt << ", is invalid." << endl;
+			cout << "Enter the coordinates of the destination you want to move to. (eg A3) : ";
+			cin >> endPos;
+			cout << endl;
+
+		}
+		else
+			break;
+	}
 	
 
 		cout << endl;
@@ -138,8 +155,7 @@ int* Interface::userInput()
 		c[3] = endy;
 
 		// for testing 
-
-	//	std::cout << "Starting coordinate array: " << c[0] << c[1] << " Destination coordinate array: " << c[2] << c[3];
+		// std::cout << "DEBUG: Starting coordinate array: " << c[0] << c[1] << " Destination coordinate array: " << c[2] << c[3];
 		return c;
 
 }
@@ -164,14 +180,17 @@ void Interface::movePiece(Piece Matrix[8][8])
 	//check selected position is a valid piece of users colour
 	if (myColour == 'W')
 	{
-		cout << "That piece isn't the correct colour!" << endl;
+		cout << endl << "That piece isn't the correct colour!" << endl << endl;
 	}
 	else if (check.moveLegal(c[1], c[0], c[3], c[2], Matrix))
 	{
 		Matrix[c[3]][c[2]] = Matrix[c[1]][c[0]]; // changing the source piece to the dest piece
 		Matrix[c[1]][c[0]] = piece7; // empty space object piece
-		*playergo = 0; // pointer to change to the computer's go
+		playergo = 0; // to change to the computer's go
 	}
+	else
+		cout << "This move is not legal";
+		playergo = 1; // to restart the users go
 }
 
 
@@ -224,7 +243,7 @@ int Interface::NumberToRow(const int Row)
 */
 void Interface::printLogo(void)
 // Jerome Vonk
-// Chess Console Game in C++ (Logo)
+// Chess Console Game in C++
 // 2016
 // https://www.codeproject.com/Articles/1214018/Chess-Console-Game-in-Cplusplus
 {
