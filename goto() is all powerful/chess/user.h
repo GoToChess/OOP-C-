@@ -29,7 +29,7 @@ private:
 	int startx, starty, endx, endy;
 	char myColour;
 	Rules check;
-	Piece piece7;
+
 
 
 public:
@@ -77,7 +77,7 @@ int* Interface::userInput()
 
 
 
-	cout << "________________________________________" << endl;
+	cout << endl << "________________________________________" << endl;
 	cout << endl << "user's go... " << endl;
 	cout << endl;
 
@@ -100,7 +100,7 @@ int* Interface::userInput()
 		int destInt = endPos[1];
 			
 		// Input validation to make sure x value falls between A and H and the y is between 1 and 8
-		if (!((SCascii >= ascii_A && SCascii <= ascii_H) || (startInt >= 0 && startInt < 8)))
+		if (!((SCascii >= ascii_A && SCascii <= ascii_H) || (startInt >= 1 && startInt <= 8)))
 		{
 			cout << "Your inputted move, " << startPos << ", is invalid." << endl;
 			cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
@@ -108,8 +108,8 @@ int* Interface::userInput()
 			cout << endl;
 		}
 
-			
-		else if (!((DCascii >= ascii_A && DCascii <= ascii_H) || (startInt >= 0 && startInt < 8)))
+		// Input validation to make sure x value falls between A and H and the y is between 1 and 8	
+		else if (!((DCascii >= ascii_A && DCascii <= ascii_H) || (startInt >= 1 && startInt <= 8)))
 		{
 			cout << "Your inputted move, " << endPos << ", is invalid." << endl;
 			cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
