@@ -29,7 +29,7 @@ private:
 	int startx, starty, endx, endy;
 	char myColour;
 	Rules check;
-
+	Piece piece7;
 
 
 public:
@@ -68,7 +68,7 @@ public:
 int* Interface::userInput()
 {
 
-	playergo = 1;
+	playergo = 1; // setting to users turn
 	// Creating ASCII for input validation between A and H
 	char A = 'A';
 	char H = 'H';
@@ -81,6 +81,7 @@ int* Interface::userInput()
 	cout << endl << "user's go... " << endl;
 	cout << endl;
 
+	// collecting user input
 	cout << "Enter the coordinates of the piece you want to move. (eg A1): ";
 	cin >> startPos;
 	cout << endl;
@@ -90,38 +91,53 @@ int* Interface::userInput()
 	
 	while(1)
 	{
-
-		char startChar = startPos[0];
+		
+		char startChar = startPos[0]; // The column of starting pos
 		int SCascii = startChar;
-		int startInt = startPos[1];
+		int startInt = stoi(startPos.substr(1, 1)); // The row of starting pos
 			
-		char destChar = endPos[0];
+		char destChar = endPos[0]; // The colum of detsination pos
 		int DCascii = destChar;
-		int destInt = endPos[1];
-			
-		// Input validation to make sure x value falls between A and H and the y is between 1 and 8
-		if (!((SCascii >= ascii_A && SCascii <= ascii_H) || (startInt >= 1 && startInt <= 8)))
+		int destInt = stoi(endPos.substr(1, 1)); // The row of starting pos
+
+		// Input validation to make sure starting column value falls between A and H
+		if (!(SCascii >= ascii_A && SCascii <= ascii_H))
 		{
-			cout << "Your inputted move, " << startPos << ", is invalid." << endl;
+			cout << "Your inputted start column, " << startChar << ", is invalid." << endl;
 			cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
 			cin >> startPos;
 			cout << endl;
 		}
-
-		// Input validation to make sure x value falls between A and H and the y is between 1 and 8	
-		else if (!((DCascii >= ascii_A && DCascii <= ascii_H) || (startInt >= 1 && startInt <= 8)))
+		// Input validation to make sure starting row value falls between 1-8
+		else if (!((startInt >= 1 && startInt <= 8)))
 		{
-			cout << "Your inputted move, " << endPos << ", is invalid." << endl;
+			cout << "Your inputted start row, " << startInt << ", is invalid." << endl;
 			cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
 			cin >> startPos;
 			cout << endl;
 		}
+		// Input validation to make sure destination column value falls between A and H
+		else if (!((DCascii >= ascii_A && DCascii <= ascii_H)))
+		{
+			cout << "Your destination column, " << destChar << ", is invalid." << endl;
+			cout << "Enter the coordinates of the detination you want to move to. (eg A1) : ";
+			cin >> endPos;
+			cout << endl;
+		}
+		// Input validation to make sure destination row value falls between 1-8
+		else if (!((destInt >= 1 && destInt <= 8)))
+		{
+			cout << "Your destination row, " << destInt << ", is invalid." << endl;
+			cout << "Enter the coordinates of the destination you want to move to. (eg A3) : ";
+			cin >> endPos;
+			cout << endl;
 
+		}
 		else
 			break;
 	}
 	
-		// Continues with program if inputs pass validation
+
 		cout << endl;
 		cout << "You have selected the piece at " << startPos << " and want to move it to " << endPos << endl;
 
@@ -139,8 +155,7 @@ int* Interface::userInput()
 		c[3] = endy;
 
 		// for testing 
-
-		std::cout << "Starting coordinate array: " << c[0] << c[1] << " Destination coordinate array: " << c[2] << c[3];
+		// std::cout << "DEBUG: Starting coordinate array: " << c[0] << c[1] << " Destination coordinate array: " << c[2] << c[3];
 		return c;
 
 }
@@ -165,14 +180,17 @@ void Interface::movePiece(Piece Matrix[8][8])
 	//check selected position is a valid piece of users colour
 	if (myColour == 'W')
 	{
-		cout << "That piece isn't the correct colour!" << endl;
+		cout << endl << "That piece isn't the correct colour!" << endl << endl;
 	}
 	else if (check.moveLegal(c[1], c[0], c[3], c[2], Matrix))
 	{
 		Matrix[c[3]][c[2]] = Matrix[c[1]][c[0]]; // changing the source piece to the dest piece
 		Matrix[c[1]][c[0]] = piece7; // empty space object piece
-		playergo = 0; // pointer to change to the computer's go
+		playergo = 0; // to change to the computer's go
 	}
+	else
+		cout << "This move is not legal";
+		playergo = 1; // to restart the users go
 }
 
 
