@@ -1,5 +1,13 @@
 #pragma once
-#include "computer.h"
+#include "user.h"
+/**
+*Class Class Defining the king situatiosn throughout the game
+*
+*@author Eoin Durkin <durkin-e@ulster.ac.uk>
+*@license http://www.gnu.org/copyleft/gpl.html
+*@copyright Eoin Durkin 2020
+*
+*/
 
 //King Situation
 //one for white king, one for black king, to print that the user is in checkmate. return 1 if true for message to be displayed and return 0 if not in check.
@@ -18,7 +26,14 @@ public:
 	int check_W(Piece Matrix[8][8]);
 
 };
-
+/*
+*@author Eoin Durkin
+*
+*checks if a Black King is in Check/ Also if there is a legal move on King to force "Checkmate"
+*
+*@param Matrix[8][8] This 8x8 array checks the board using the Ruairis Piece Class
+*@return returns 1 if Black King is in Checkmate, if not returns 0
+*/
 int King_Situations::check_B(Piece Matrix[8][8])
 {
 	for (int a = 0; a < 8; a++) {
@@ -54,7 +69,14 @@ int King_Situations::check_B(Piece Matrix[8][8])
 		}
 	}
 }
-
+/*
+*@author Eoin Durkin
+*
+*checks if a White King is in Check/ Also if there is a legal move on King to force "Checkmate"
+*
+*@param Matrix[8][8] This 8x8 array checks the board using the Ruairis Piece Class
+*@return returns 1 if White King is in Checkmate, if not returns 0
+*/
 int King_Situations::check_W(Piece Matrix[8][8])
 {
 	for (int a = 0; a < 8; a++) {
