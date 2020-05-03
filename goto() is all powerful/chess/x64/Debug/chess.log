@@ -1,0 +1,11 @@
+﻿  chess.cpp
+C:\Users\C3\source\repos\chess\computer.h(85,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\C3\source\repos\chess\rules.h(277): warning C4715: 'Rules::Bishop_rules': not all control paths return a value
+C:\Users\C3\source\repos\chess\rules.h(395): warning C4715: 'Rules::moveLegal': not all control paths return a value
+C:\Users\C3\source\repos\chess\rules.h(218): warning C4715: 'Rules::Rook_rules': not all control paths return a value
+C:\Users\C3\source\repos\chess\computer.h(241): warning C4715: 'cpu::checkmate_move': not all control paths return a value
+C:\Users\C3\source\repos\chess\computer.h(293): warning C4715: 'cpu::blackpiece_move': not all control paths return a value
+C:\Users\C3\source\repos\chess\computer.h(351): warning C4715: 'cpu::priority_move': not all control paths return a value
+C:\Users\C3\source\repos\chess\user.h(183): warning C4715: 'Interface::NumberToRow': not all control paths return a value
+C:\Users\C3\source\repos\chess\user.h(164): warning C4715: 'Interface::letterToColumn': not all control paths return a value
+  chess.vcxproj -> C:\Users\C3\source\repos\chess\x64\Debug\chess.exe
