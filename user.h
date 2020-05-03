@@ -108,7 +108,7 @@ int* Interface::userInput()
 			}
 
 			
-			else if (!((DCascii >= ascii_A && DCascii <= ascii_H) || (startInt >= 1 && startInt <= 8)))
+			else if (!((DCascii >= ascii_A && DCascii <= ascii_H) || (destInt >= 1 && destInt <= 8)))
 			{
 				cout << "Your inputted move, " << endPos << ", is invalid." << endl;
 				cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
