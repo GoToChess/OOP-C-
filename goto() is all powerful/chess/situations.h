@@ -1,5 +1,12 @@
 #include "Board.h"
-
+/**
+*Class Situations which includes PawnPromotion
+*
+*@author Eoin Durkin <durkin-e@ulster.ac.uk>
+*@license http://www.gnu.org/copyleft/gpl.html
+*@copyright Eoin Durkin 2020
+*
+*/
 class situations
 {
 private:
@@ -11,7 +18,14 @@ public:
 	void pawn_promotion(Piece Matrix[8][8]);
 };
 
-
+/**
+*@author Eoin Durkin
+*
+*Promotes Pawns to either Queen, Knight, Bishop or Rook once it reachs end of the board
+*
+*@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
+*@void Pick eitehr Q, N, R, B to promote pawn to.
+*/
 // if pawn Black or white, reaches the opponents end, piece selection is called
 void situations::pawn_promotion(Piece Matrix[8][8])
 {
