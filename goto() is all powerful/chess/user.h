@@ -192,7 +192,7 @@ void Interface::movePiece(Piece board[8][8])
 		board[c[1]][c[0]] = piece7; // empty space object piece
 		playergo = 0; // to change to the computer's go
 	}
-	else
+	else 
 		cout << "This move is not legal";
 		playergo = 1; // to restart the users go
 }
