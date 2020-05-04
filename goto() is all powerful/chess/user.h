@@ -208,14 +208,14 @@ void Interface::movePiece(Piece board[8][8])
 */
 int Interface::letterToColumn(const std::string letter)
 {
-	if (letter == "A") { return 0; }
-	else if (letter == "B") { return 1; }
-	else if (letter == "C") { return 2; }
-	else if (letter == "D") { return 3; }
-	else if (letter == "E") { return 4; }
-	else if (letter == "F") { return 5; }
-	else if (letter == "G") { return 6; }
-	else if (letter == "H") { return 7; }
+	if (letter == "A" || "a") { return 0; }
+	else if (letter == "B" || "b") { return 1; }
+	else if (letter == "C" || "c") { return 2; }
+	else if (letter == "D" || "d") { return 3; }
+	else if (letter == "E" || "e") { return 4; }
+	else if (letter == "F" || "f") { return 5; }
+	else if (letter == "G" || "g") { return 6; }
+	else if (letter == "H" || "h") { return 7; }
 
 }
 
