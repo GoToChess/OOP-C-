@@ -92,22 +92,23 @@ int* Interface::userInput()
 	while(1)
 	{
 		
-		char startChar = startPos[0]; // The column of starting pos
+		char startChar = startPos[0];
 		int SCascii = startChar;
-		int startInt = stoi(startPos.substr(1, 1)); // The row of starting pos
+		int startInt = stoi(startPos.substr(1, 1));
 			
-		char destChar = endPos[0]; // The colum of detsination pos
+		char destChar = endPos[0];
 		int DCascii = destChar;
-		int destInt = stoi(endPos.substr(1, 1)); // The row of starting pos
+		int destInt = stoi(endPos.substr(1, 1));
 
-		// Input validation to make sure starting column value falls between A and H
-		if (!(SCascii >= ascii_A && SCascii <= ascii_H))
+		// Input validation to make sure x value falls between A and H
+		if (!(SCascii >= ascii_A && SCascii <= ascii_H) && !(SCascii >= ascii_a && SCascii <= ascii_h))
 		{
 			cout << "Your inputted start column, " << startChar << ", is invalid." << endl;
 			cout << "Enter the coordinates of the piece you want to move. (eg A1) : ";
 			cin >> startPos;
 			cout << endl;
 		}
+
 		// Input validation to make sure starting row value falls between 1-8
 		else if (!((startInt >= 1 && startInt <= 8)))
 		{
@@ -116,14 +117,16 @@ int* Interface::userInput()
 			cin >> startPos;
 			cout << endl;
 		}
+
 		// Input validation to make sure destination column value falls between A and H
-		else if (!((DCascii >= ascii_A && DCascii <= ascii_H)))
+		else if (!(DCascii >= ascii_A && DCascii <= ascii_H) && !(SCascii >= ascii_a && SCascii <= ascii_h))
 		{
 			cout << "Your destination column, " << destChar << ", is invalid." << endl;
 			cout << "Enter the coordinates of the detination you want to move to. (eg A1) : ";
 			cin >> endPos;
 			cout << endl;
 		}
+
 		// Input validation to make sure destination row value falls between 1-8
 		else if (!((destInt >= 1 && destInt <= 8)))
 		{
