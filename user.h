@@ -224,14 +224,14 @@ int Interface::letterToColumn(const std::string letter)
 
 int Interface::NumberToRow(const int Row)
 {
-	if (Row == 1) { return 0; }
-	else if (Row == 2) { return 1; }
-	else if (Row == 3) { return 2; }
-	else if (Row == 4) { return 3; }
-	else if (Row == 5) { return 4; }
-	else if (Row == 6) { return 5; }
-	else if (Row == 7) { return 6; }
-	else if (Row == 8) { return 7; }
+	if (Row == 1) { return 7; }
+	else if (Row == 2) { return 6; }
+	else if (Row == 3) { return 5; }
+	else if (Row == 4) { return 4; }
+	else if (Row == 5) { return 3; }
+	else if (Row == 6) { return 2; }
+	else if (Row == 7) { return 1; }
+	else if (Row == 8) { return 0; }
 }
 
 
