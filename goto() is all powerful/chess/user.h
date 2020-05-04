@@ -68,20 +68,21 @@ public:
 int* Interface::userInput()
 {
 
-	playergo = 1; // setting to users turn
-	// Creating ASCII for input validation between A and H
+	playergo = 1;
+	// Creating ASCII for input validation between A and H (a and h)
 	char A = 'A';
 	char H = 'H';
+	char a = 'a';
+	char h = 'h';
 	int ascii_A = int(A);
 	int ascii_H = int(H);
+	int ascii_a = int(a);
+	int ascii_h = int(h);
 
-
-
-	cout << endl << "________________________________________" << endl;
+	cout << "________________________________________" << endl;
 	cout << endl << "user's go... " << endl;
 	cout << endl;
 
-	// collecting user input
 	cout << "Enter the coordinates of the piece you want to move. (eg A1): ";
 	cin >> startPos;
 	cout << endl;
