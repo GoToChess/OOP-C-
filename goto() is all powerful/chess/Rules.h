@@ -137,7 +137,7 @@ int Rules::Pawn_rules(int sourcex, int sourcey, int destx, int desty, Piece Matr
 	int forward; //forward direction defined by which colour the piece is
 	int startingrow; //starting row for pawns defined by colour also
 	
-	//defining forward direction needed for pawns
+	//defining forward direction needed for pawns (for this game white always start at the bottom, and black at the top)
 	if (colour == 'W')
 	{
 		opp_colour = 'B';
