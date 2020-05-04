@@ -30,7 +30,6 @@ public:
 	int moveLegal(int sourcex, int sourcey, int destx, int desty, Piece Matrix[8][8]);
 	int incheck(char kingcolour, Piece Matrix[8][8]);
 
-	friend class CheckMate;
 };
 
 
