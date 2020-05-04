@@ -45,25 +45,25 @@ public:
     void printBoard(Piece board[8][8]);
     void printRow(int mainRow, int firstColour, int secondColour, Piece Matrix[8][8]);
     void printKey();
-    void squarePairCreation(char squareColour, int iLine, int iPair, int subLine, Piece Matrix[8][8]);
+    void squarePairCreation(char squareColour, int mainRow, int squarePairNum, int subLine, Piece Matrix[8][8]);
 
 };
 
 //Use of the 'Pieces' class from Pieces.h to create pieces for the board
 //Piece constructor used to set colour and type of piece
-Piece piece1('W', 'p'), piece2('W', 'r'), piece3('W', 'n'), piece4('W', 'b'), piece5('W', 'k'), piece6('W', 'q'), piece7('_', '_'), piece8('B', 'P'), piece9('B', 'R'), piece10('B', 'N'), piece11('B', 'B'), piece12('B', 'K'), piece13('B', 'Q');
+Piece piece1('W', 'P'), piece2('W', 'R'), piece3('W', 'N'), piece4('W', 'B'), piece5('W', 'K'), piece6('W', 'Q'), piece7('_', '_'), piece8('B', 'P'), piece9('B', 'R'), piece10('B', 'N'), piece11('B', 'B'), piece12('B', 'K'), piece13('B', 'Q');
 
 //Creating an 8x8 matrix array of declared pieces
 //Sets inital board setup
 Piece board[8][8] = {
-    {piece1, piece1, piece1, piece1, piece1, piece1, piece1, piece1},
-    {piece2, piece3, piece4, piece5, piece6, piece4, piece3, piece2},
-    {piece7, piece7, piece7, piece7, piece7, piece7, piece7, piece7},
-    {piece7, piece7, piece7, piece7, piece7, piece7, piece7, piece7},
-    {piece7, piece7, piece7, piece7, piece7, piece7, piece7, piece7},
-    {piece7, piece7, piece7, piece7, piece7, piece7, piece7, piece7},
     {piece9, piece10, piece11, piece12, piece13, piece11, piece10, piece9},
-    {piece8, piece8, piece8, piece8, piece8, piece8, piece8, piece8}
+    {piece8, piece8, piece8, piece8, piece8, piece8, piece8, piece8},
+    {piece7, piece7, piece7, piece7, piece7, piece7, piece7, piece7},
+    {piece7, piece7, piece7, piece7, piece7, piece7, piece7, piece7},
+    {piece7, piece7, piece7, piece7, piece7, piece7, piece7, piece7},
+    {piece7, piece7, piece7, piece7, piece7, piece7, piece7, piece7},
+    {piece1, piece1, piece1, piece1, piece1, piece1, piece1, piece1},
+    {piece2, piece3, piece4, piece5, piece6, piece4, piece3, piece2}
 };
 
 void Board::printBoard(Piece board[8][8])
@@ -187,21 +187,4 @@ void Board::printRow(int mainRow, int firstColour, int secondColour, Piece Matri
         }
         cout << "\n";
     }
-}
-
-void Board::printKey()
-{
-    /**
-    *@author Harry Hawkes <hawkes-h@ulster.ac.uk>
-    *
-    *A function that can be used to print out the key for pieces displayed on the board
-    *
-    *@param whiteKey - variable holding a character string containing the key for white pieces
-    *@param firstColour - variable holding a character string containing the key for black pieces
-    *
-    */
-    cout << "\n\n--------------------------\n\n";
-    cout << "White Pieces = Lowercase\n";
-    cout << "Black Pieces = Uppercase\n";
-    cout << "\n---------------------------\n";
 }
