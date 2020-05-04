@@ -40,7 +40,7 @@ public:
 	int playergo;
 
 	//Function to allow movelegal() to check if the user has selected the correct colour
-	void movePiece(Piece Matrix[8][8]);
+	void movePiece(Piece board[8][8]);
 
 
 	// Inputs collected from user in coordinate format
@@ -176,20 +176,20 @@ int* Interface::userInput()
 */
 
 
-void Interface::movePiece(Piece Matrix[8][8])
+void Interface::movePiece(Piece board[8][8])
 {
 
-	myColour = Matrix[c[0]][c[1]].getColour();
+	myColour = board[c[0]][c[1]].getColour();
 
 	//check selected position is a valid piece of users colour
 	if (myColour == 'W')
 	{
 		cout << endl << "That piece isn't the correct colour!" << endl << endl;
 	}
-	else if (check.moveLegal(c[1], c[0], c[3], c[2], Matrix))
+	else if (check.moveLegal(c[1], c[0], c[3], c[2], board))
 	{
-		Matrix[c[3]][c[2]] = Matrix[c[1]][c[0]]; // changing the source piece to the dest piece
-		Matrix[c[1]][c[0]] = piece7; // empty space object piece
+		board[c[3]][c[2]] = Matrix[c[1]][c[0]]; // changing the source piece to the dest piece
+		board[c[1]][c[0]] = piece7; // empty space object piece
 		playergo = 0; // to change to the computer's go
 	}
 	else
