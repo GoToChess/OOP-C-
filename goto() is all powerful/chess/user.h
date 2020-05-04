@@ -64,7 +64,6 @@ public:
 * @see Interface::letterToColumn
 * @see Interface::NumberToRow
 */
-
 int* Interface::userInput()
 {
 
@@ -167,15 +166,13 @@ int* Interface::userInput()
 
 
 /**
-* checks if the user has selected a piece that is theirs
+* checks if the user has selected a piece that is theirs and if legal, moves this piece
 *
 *
-* @param Piece Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board
+* @param Piece board[8][8] an 8x8 array of "Piece" objects which represent the current chess board
 * @return returns True if the selected piece is the users, otherwise False
 * @see Piece::getColour()
 */
-
-
 void Interface::movePiece(Piece board[8][8])
 {
 
@@ -226,6 +223,7 @@ int Interface::letterToColumn(const std::string letter)
 *
 *
 * @param The array value for the row input from user
+* @return The array value for the row input from user
 */
 
 int Interface::NumberToRow(const int Row)
