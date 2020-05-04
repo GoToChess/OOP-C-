@@ -188,7 +188,7 @@ void Interface::movePiece(Piece board[8][8])
 	}
 	else if (check.moveLegal(c[1], c[0], c[3], c[2], board))
 	{
-		board[c[3]][c[2]] = Matrix[c[1]][c[0]]; // changing the source piece to the dest piece
+		board[c[3]][c[2]] = board[c[1]][c[0]]; // changing the source piece to the dest piece
 		board[c[1]][c[0]] = piece7; // empty space object piece
 		playergo = 0; // to change to the computer's go
 	}
