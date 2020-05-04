@@ -184,17 +184,19 @@ void Interface::movePiece(Piece board[8][8])
 	//check selected position is a valid piece of users colour
 	if (myColour == 'W')
 	{
-		cout << endl << "That piece isn't the correct colour!" << endl << endl;
+		cout << endl << endl << "THAT PIECE ISNT THE CORRECT COLOUR, TRY AGAIN!" << endl << endl;
 	}
 	else if (check.moveLegal(c[1], c[0], c[3], c[2], board))
 	{
 		board[c[3]][c[2]] = board[c[1]][c[0]]; // changing the source piece to the dest piece
 		board[c[1]][c[0]] = piece7; // empty space object piece
 		playergo = 0; // to change to the computer's go
+		cout << endl << "Users turn is over" << endl;
+	// 	cout << endl << "DEBUG: Array coordinates, from: " << c[0] << c[1] << " To: " << c[2] << c[3];
 	}
 	else 
-		cout << "This move is not legal";
-		playergo = 1; // to restart the users go
+		cout << endl << endl << "THAT MOVE WAS NOT LEGAL, TRY AGAIN" << endl << endl;
+//		playergo = 1; // to restart the users go
 }
 
 
