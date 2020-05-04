@@ -27,7 +27,7 @@ public:
 *
 *@param kingcolour the colour of the king thats turn it is to play
 *@param Matrix[8][8] an 8x8 array of "Piece" objects which represent the current chess board to be analysed
-*@return returns a 1 if the Black King is CheckMate, Returns 0 if it is not
+*@return returns a 1 if the King is in CheckMate, Returns 0 if it is not
 */
 
 int CheckMate::checkMate(char kingcolour, Piece Matrix[8][8])
