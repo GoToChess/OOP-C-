@@ -16,12 +16,8 @@ class Piece
 {
 	char Colour; //'W' or 'B' or use '_'for objects which will fill up empty squares
 	char Type;//P=pawn, K=king, Q=queen, R=rook, B=bishop N=knight, use _ for empty ones which will fill up empty squares
-			  //int movecount = 0; //to track if a piece has moved to check if castling is legal
 
 public:
-	//TODO: ADD SO YOU CAN ENTER A CAPITAL OR LOWER CASE LETTER AND IT CONVERTS TO UPPERCASE
-	//possibly hold original 'File' of piece for en passant
-
 	Piece();
 	Piece(char constructorcolour, char constructortype); //constructor with parameters
 	void input(char newcolour, char newtype);
@@ -67,15 +63,13 @@ Piece::Piece()
 */
 void Piece::input(char newcolour, char newtype)
 {
-	//TODO: ADD SO YOU CAN ENTER A CAPITAL OR LOWER CASE LETTER AND IT CONVERTS TO UPPERCASE
+
 	if (newcolour == 'W' || newcolour == 'B' || newcolour == '_') Colour = newcolour; //sets colour of piece
 	//error if invalid selection
 	else std::cout << "ERROR: you have attempted to create a piece with a colour that is not valid, valid colours, are B, W , and  _" << std::endl;
 
 	if (newtype == 'P' || newtype == 'K' || newtype == 'Q' || newtype == 'R' || newtype == 'B' || newtype == 'N' || newtype == '_') Type = newtype;
 	else std::cout << "ERROR: you have attempted to create a piece with an invalid type, valid types are P, K, Q, R, B, N and _" << std::endl;
-	//same as above could add error correction here for if an invalid letter is typed in
-
 }
 
 /**
