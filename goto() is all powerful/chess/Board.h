@@ -188,3 +188,20 @@ void Board::printRow(int mainRow, int firstColour, int secondColour, Piece Matri
         cout << "\n";
     }
 }
+
+void Board::printKey()
+{
+    /**
+    *@author Harry Hawkes <hawkes-h@ulster.ac.uk>
+    *
+    *A function that can be used to print out the key for pieces displayed on the board
+    *
+    *@param whiteKey - variable holding a character string containing the key for white pieces
+    *@param firstColour - variable holding a character string containing the key for black pieces
+    *
+    */
+    cout << "\n\n--------------------------\n\n";
+    cout << "White Pieces = Lowercase\n";
+    cout << "Black Pieces = Uppercase\n";
+    cout << "\n---------------------------\n";
+}
